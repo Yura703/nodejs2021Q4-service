@@ -1,10 +1,10 @@
 const User = require('./user.model');
 const usersService = require('./user.service');
-// const userSchema = require('./user.schema');
+const schemas = require('./user.schema');
 
 async function userRoutes(fastify) {
   // GET /users - get all users (remove password from response)
-  fastify.get('/', async (req, reply) => {
+  fastify.get('/', { schema: schemas.findAll }, async (req, reply) => {
     const users = await usersService.findAll();
 
     reply.send(users === [] ? [] : users.map(User.toResponse));
@@ -23,7 +23,8 @@ async function userRoutes(fastify) {
     const userReq = req.body;
     const user = await usersService.createUser(userReq);
 
-    reply.send(user);
+    reply.status(201);
+    reply.send(User.toResponse(user));
   });
 
   // PUT /users/:userId - update user
@@ -38,8 +39,12 @@ async function userRoutes(fastify) {
   // DELETE /users/:userId - delete user
   fastify.delete('/:userId', async (req, reply) => {
     const { userId } = req.params;
-    await usersService.deleteUser(userId);
-
+    const result = await usersService.deleteUser(userId);
+    if (typeof result === 'string') {
+      reply.status(404);
+      reply.send(result);
+    }
+    reply.status(204);
     reply.send();
   });
 }

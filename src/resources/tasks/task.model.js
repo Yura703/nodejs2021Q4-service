@@ -6,7 +6,7 @@ class Task {
     title = 'TASK',
     order = 0,
     description = '',
-    userId,
+    userId = null,
     boardId,
     columnId,
   } = {}) {

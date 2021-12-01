@@ -1,3 +1,21 @@
+const findAll = {
+  schema: {
+    response: {
+      200: {
+        type: 'array',
+        user: {
+          type: 'object',
+          properties: {
+            id: { type: 'string', format: 'uuid' },
+            name: { type: 'string' },
+            login: { type: 'string' },
+          },
+        },
+      },
+    },
+  },
+};
+
 const getUsersOpts = {
   schema: {
     response: {
@@ -15,4 +33,4 @@ const getUsersOpts = {
   },
 };
 
-module.exports = { getUsersOpts };
+module.exports = { findAll, getUsersOpts };
