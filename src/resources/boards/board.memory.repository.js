@@ -1,58 +1,62 @@
 const Board = require('./board.model');
+// const { deleteTaskByBoardId } = require('../tasks/task.service');
 
 const ITEM_NOT_FOUND = -1;
 
 class RepositoryBoard {
   constructor() {
-    this.arrayboard = [];
+    this.arrayBoard = [];
   }
 
   // get
   findById(id) {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
-      return "id isn'not valid";
+      return 'id not found';
     }
 
-    return this.arrayboard[index];
+    return this.arrayBoard[index];
   }
 
   findAll() {
-    return this.arrayboard;
+    return this.arrayBoard;
   }
 
   // post
-  createboard(board) {
-    const createboard = new Board(board);
-    this.arrayboard.push(createboard);
+  createBoard(board) {
+    const createBoard = new Board(board);
+    this.arrayBoard.push(createBoard);
 
-    return createboard;
+    return createBoard;
   }
 
   // put
-  editboard(id, board) {
+  editBoard(id, board) {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return "id isn'not valid";
     }
-    const createboard = new Board(board);
-    createboard.id = id;
-    this.arrayboard[index] = createboard;
-    return createboard;
+
+    this.arrayBoard[index].title = board.title; // сделать редактирование  столбцов
+
+    return this.arrayBoard[index];
   }
 
   // delete
-  deleteboard(id) {
-    const index = this.receiveId(id);
+  async deleteBoard(id) {
+    const index = await this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
-      return "id isn'not valid";
+      return 'id not found';
     }
-    this.arrayboard.splice(index, 1);
+    // const board = this.arrayBoard[index];
+    // await deleteTaskByBoardId(board.id);
+
+    await this.arrayBoard.splice(index, 1);
     return true;
   }
 
   receiveId(id) {
-    const index = this.arrayboard.findIndex((board) => board.id === id);
+    const index = this.arrayBoard.findIndex((board) => board.id === id);
 
     return index;
   }

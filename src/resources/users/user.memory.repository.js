@@ -42,11 +42,14 @@ class RepositoryUser {
   }
 
   // delete
-  deleteUser(id) {
+  async deleteUser(id) {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return "id isn'not valid";
     }
+
+    // await updateTaskByUserId(id);
+
     this.arrayUser.splice(index, 1);
     return true;
   }

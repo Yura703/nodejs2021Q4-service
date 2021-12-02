@@ -14,23 +14,26 @@ async function boardRoutes(fastify) {
     const { boardId } = req.params;
     const board = await boardsService.findById(boardId);
 
+    if (typeof board === 'string') {
+      reply.status(404);
+    }
     reply.send(board);
   });
 
   // POST /boards - create board
   fastify.post('/', async (req, reply) => {
     const boardReq = req.body;
-    const board = await boardsService.createboard(boardReq);
+    const board = await boardsService.createBoard(boardReq);
 
     reply.status(201);
-    reply.send(board.toResponse(board));
+    reply.send(board);
   });
 
   // PUT /boards/:boardId - update board
   fastify.put('/:boardId', async (req, reply) => {
     const { boardId } = req.params;
     const boardReq = req.body;
-    const board = await boardsService.editboard(boardId, boardReq);
+    const board = await boardsService.editBoard(boardId, boardReq);
 
     reply.send(board);
   });
@@ -38,7 +41,7 @@ async function boardRoutes(fastify) {
   // DELETE /boards/:boardId - delete board
   fastify.delete('/:boardId', async (req, reply) => {
     const { boardId } = req.params;
-    const result = await boardsService.deleteboard(boardId);
+    const result = await boardsService.deleteBoard(boardId);
     if (typeof result === 'string') {
       reply.status(404);
       reply.send(result);
