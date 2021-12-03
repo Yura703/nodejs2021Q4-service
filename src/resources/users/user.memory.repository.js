@@ -48,8 +48,6 @@ class RepositoryUser {
       return "id isn'not valid";
     }
 
-    // await updateTaskByUserId(id);
-
     this.arrayUser.splice(index, 1);
     return true;
   }

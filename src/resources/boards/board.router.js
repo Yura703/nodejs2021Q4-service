@@ -1,5 +1,5 @@
 const boardsService = require('./board.service');
-// const schemas = require('./board.schema');
+const { postBoardOpts, putBoardOpts } = require('./board.schema');
 
 async function boardRoutes(fastify) {
   // GET /boards - get all boards
@@ -21,7 +21,7 @@ async function boardRoutes(fastify) {
   });
 
   // POST /boards - create board
-  fastify.post('/', async (req, reply) => {
+  fastify.post('/', postBoardOpts, async (req, reply) => {
     const boardReq = req.body;
     const board = await boardsService.createBoard(boardReq);
 
@@ -30,7 +30,8 @@ async function boardRoutes(fastify) {
   });
 
   // PUT /boards/:boardId - update board
-  fastify.put('/:boardId', async (req, reply) => {
+  fastify.put('/:boardId', putBoardOpts, async (req, reply) => {
+    // сделать замену для данных колонки
     const { boardId } = req.params;
     const boardReq = req.body;
     const board = await boardsService.editBoard(boardId, boardReq);

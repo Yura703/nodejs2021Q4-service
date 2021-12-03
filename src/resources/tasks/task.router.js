@@ -1,5 +1,5 @@
 const tasksService = require('./task.service');
-// const schemas = require('./task.schema');
+const { postTaskOpts } = require('./task.schema');
 
 async function taskRoutes(fastify) {
   // GET boards/:boardId/tasks - get all tasks
@@ -25,7 +25,7 @@ async function taskRoutes(fastify) {
   });
 
   // POST boards/:boardId/tasks - create task
-  fastify.post('/', async (req, reply) => {
+  fastify.post('/', postTaskOpts, async (req, reply) => {
     const taskReq = req.body;
     const { boardId } = req.params;
     const task = await tasksService.createTask(boardId, taskReq);
@@ -35,7 +35,7 @@ async function taskRoutes(fastify) {
   });
 
   // PUT boards/:boardId/tasks/:taskId - update task
-  fastify.put('/:taskId', async (req, reply) => {
+  fastify.put('/:taskId', postTaskOpts, async (req, reply) => {
     const { boardId, taskId } = req.params;
     const taskReq = req.body;
     const task = await tasksService.editTask(boardId, taskId, taskReq);
