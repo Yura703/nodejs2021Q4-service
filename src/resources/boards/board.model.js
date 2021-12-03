@@ -1,16 +1,22 @@
 const { v4: uuidv4 } = require('uuid');
 
+function initColumns(columns) {
+  if (Array.isArray(columns) && columns.length > 0) {
+    const _columns = columns;
+
+    for (let i = 0; i < _columns.length; i += 1) {
+      _columns[i].id = uuidv4();
+    }
+
+    return _columns;
+  }
+  return [];
+}
 class Board {
   constructor({ id = uuidv4(), title = 'BOARD', columns = [] } = {}) {
     this.id = id;
     this.title = title;
-    if (Array.isArray(columns) && columns.length > 0) {
-      columns.forEach((element) => {
-        // eslint-disable-next-line no-param-reassign
-        element.id = uuidv4();
-      });
-    }
-    this.columns = columns;
+    this.columns = initColumns(columns);
   }
 }
 
