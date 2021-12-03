@@ -38,6 +38,7 @@ class RepositoryUser {
     const createUser = new User(user);
     createUser.id = id;
     this.arrayUser[index] = createUser;
+
     return createUser;
   }
 
@@ -49,6 +50,7 @@ class RepositoryUser {
     }
 
     this.arrayUser.splice(index, 1);
+
     return true;
   }
 
