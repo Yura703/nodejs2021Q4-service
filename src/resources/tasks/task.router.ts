@@ -58,4 +58,4 @@ async function taskRoutes(fastify) {
   });
 }
 
-module.exports = taskRoutes;
+export = taskRoutes;

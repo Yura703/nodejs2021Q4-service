@@ -1,11 +1,12 @@
-const usersService = require('./user.service');
-const {
-  getUsersOpts,
-  getAllUsersOpts,
-  postUsersOpts,
-  putUsersOpts,
-} = require('./user.schema');
+import usersService from './user.service';
+import { getUsersOpts, getAllUsersOpts, postUsersOpts, putUsersOpts } from './user.schema';
 
+/**
+ * Returns the sum of a and b
+ * @param a first term number
+ * @param b second term number
+ * @returns Sum of a and b number
+ */
 async function userRoutes(fastify) {
   // GET /users - get all users (remove password from response)
   fastify.get('/', getAllUsersOpts, async (req, reply) => {
@@ -14,6 +15,9 @@ async function userRoutes(fastify) {
     reply.send(users);
   });
 
+  /**
+   *
+   */
   // GET /users/:userId - get the user by id (ex. “/users/123”) (remove password from response)
   fastify.get('/:userId', getUsersOpts, async (req, reply) => {
     const { userId } = req.params;
@@ -53,4 +57,4 @@ async function userRoutes(fastify) {
   });
 }
 
-module.exports = userRoutes;
+export = userRoutes;

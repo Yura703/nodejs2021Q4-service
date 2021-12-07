@@ -52,4 +52,4 @@ async function boardRoutes(fastify) {
   });
 }
 
-module.exports = boardRoutes;
+export = boardRoutes;
