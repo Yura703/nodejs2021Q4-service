@@ -1,17 +1,17 @@
+import { FastifyPluginAsync } from "fastify"
 const tasksService = require('./task.service');
 const { postTaskOpts } = require('./task.schema');
 
-async function taskRoutes(fastify) {
+const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   // GET boards/:boardId/tasks - get all tasks
-  fastify.get('/', async (req, reply) => {
+  fastify.get<{ Params: {boardId: string} }>('/', async (req, reply) => {
     const { boardId } = req.params;
-    const tasks = await tasksService.findAll(boardId);
-
-    reply.send(tasks);
+    
+    return await tasksService.findAll(boardId);
   });
 
   // GET boards/:boardId/tasks/:taskId - get the task by id
-  fastify.get('/:taskId', async (req, reply) => {
+  fastify.get<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {
     const { boardId, taskId } = req.params;
 
     const task = await tasksService.findById(boardId, taskId);
@@ -25,7 +25,7 @@ async function taskRoutes(fastify) {
   });
 
   // POST boards/:boardId/tasks - create task
-  fastify.post('/', postTaskOpts, async (req, reply) => {
+  fastify.post<{ Params: {boardId: string} }>('/', postTaskOpts, async (req, reply) => {
     const taskReq = req.body;
     const { boardId } = req.params;
     const task = await tasksService.createTask(boardId, taskReq);
@@ -35,7 +35,7 @@ async function taskRoutes(fastify) {
   });
 
   // PUT boards/:boardId/tasks/:taskId - update task
-  fastify.put('/:taskId', postTaskOpts, async (req, reply) => {
+  fastify.put<{ Params: {boardId: string, taskId: string} }>('/:taskId', postTaskOpts, async (req, reply) => {
     const { boardId, taskId } = req.params;
     const taskReq = req.body;
     const task = await tasksService.editTask(boardId, taskId, taskReq);
@@ -44,7 +44,7 @@ async function taskRoutes(fastify) {
   });
 
   // DELETE boards/:boardId/tasks/:taskId - delete task
-  fastify.delete('/:taskId', async (req, reply) => {
+  fastify.delete<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {
     const { boardId, taskId } = req.params;
     const result = await tasksService.deleteTask(boardId, taskId);
 

@@ -1,14 +1,15 @@
-const User = require('./user.model');
+import User from './user.model';
 
 const ITEM_NOT_FOUND = -1;
 
 class RepositoryUser {
+  arrayUser: User[];
   constructor() {
     this.arrayUser = [];
   }
 
   // get
-  findById(id) {
+  findById(id: string): User | string {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return "id isn'not valid";
@@ -17,12 +18,12 @@ class RepositoryUser {
     return this.arrayUser[index];
   }
 
-  findAll() {
+  findAll(): User[] {
     return this.arrayUser;
   }
 
   // post
-  createUser(user) {
+  createUser(user: User): User {
     const createUser = new User(user);
     this.arrayUser.push(createUser);
 
@@ -30,7 +31,7 @@ class RepositoryUser {
   }
 
   // put
-  editUser(id, user) {
+  editUser(id: string, user: User): User | string {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return "id isn'not valid";
@@ -43,7 +44,7 @@ class RepositoryUser {
   }
 
   // delete
-  async deleteUser(id) {
+  async deleteUser(id: string): Promise<string | true> {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return "id isn'not valid";
@@ -54,11 +55,11 @@ class RepositoryUser {
     return true;
   }
 
-  receiveId(id) {
+  receiveId(id: string): number {
     const index = this.arrayUser.findIndex((user) => user.id === id);
 
     return index;
   }
 }
 
-module.exports = new RepositoryUser();
+export = new RepositoryUser();

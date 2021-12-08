@@ -75,4 +75,4 @@ const putBoardOpts = {
   },
 };
 
-module.exports = { postBoardOpts, putBoardOpts };
+export { postBoardOpts, putBoardOpts };

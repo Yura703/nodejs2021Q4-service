@@ -78,4 +78,4 @@ const putUsersOpts = {
   },
 };
 
-export = { getUsersOpts, getAllUsersOpts, postUsersOpts, putUsersOpts };
+export { getUsersOpts, getAllUsersOpts, postUsersOpts, putUsersOpts };

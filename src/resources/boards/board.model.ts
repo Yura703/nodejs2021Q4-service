@@ -1,6 +1,18 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
-function initColumns(columns) {
+interface IBoard {
+  id: string;
+  title: string;
+  columns: IColumn[];
+}
+
+export interface IColumn {
+  id?: string;
+  title: string;
+  order: number;
+}
+
+function initColumns(columns: IColumn[] | []): IColumn[] | [] {
   if (Array.isArray(columns) && columns.length > 0) {
     const _columns = columns;
 
@@ -12,12 +24,14 @@ function initColumns(columns) {
   }
   return [];
 }
-class Board {
+
+export class Board implements IBoard{
   constructor({ id = uuidv4(), title = 'BOARD', columns = [] } = {}) {
     this.id = id;
     this.title = title;
     this.columns = initColumns(columns);
   }
+  id: string;
+  title: string;
+  columns: IColumn[];
 }
-
-module.exports = Board;

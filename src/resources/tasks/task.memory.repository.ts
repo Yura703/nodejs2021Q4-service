@@ -1,5 +1,5 @@
-const Task = require('./task.model');
-const RepositoryBoard = require('../boards/board.memory.repository');
+import Task from './task.model';
+import RepositoryBoard from '../boards/board.memory.repository';
 
 const ITEM_NOT_FOUND = -1;
 
@@ -75,7 +75,7 @@ class RepositoryTask {
   }
 
   // When somebody DELETEs User, all Tasks where User is assignee should be updated to put userId = null.
-  async updateTaskByUserId(userId) {
+  async updateTaskByUserId(userId: string): Promise< Task | true> {
     const tempArray = await this.arrayTask.map((task) => {
       const _task = task;
       if (_task.userId === userId) {
@@ -98,4 +98,4 @@ class RepositoryTask {
   }
 }
 
-module.exports = new RepositoryTask();
+export = new RepositoryTask();

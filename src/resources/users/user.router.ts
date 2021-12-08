@@ -1,51 +1,42 @@
+import { FastifyPluginAsync } from "fastify"
 import usersService from './user.service';
 import { getUsersOpts, getAllUsersOpts, postUsersOpts, putUsersOpts } from './user.schema';
+import User from "./user.model";
 
-/**
- * Returns the sum of a and b
- * @param a first term number
- * @param b second term number
- * @returns Sum of a and b number
- */
-async function userRoutes(fastify) {
+const userRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   // GET /users - get all users (remove password from response)
-  fastify.get('/', getAllUsersOpts, async (req, reply) => {
-    const users = await usersService.findAll();
-
-    reply.send(users);
+  fastify.get('/', getAllUsersOpts, async (_reply) => {
+    return  await usersService.findAll();
   });
-
+  
   /**
    *
    */
   // GET /users/:userId - get the user by id (ex. “/users/123”) (remove password from response)
-  fastify.get('/:userId', getUsersOpts, async (req, reply) => {
+  fastify.get<{ Params: {userId: string} }>('/:userId', getUsersOpts, async (req, _reply) => {
     const { userId } = req.params;
-    const user = await usersService.findById(userId);
 
-    reply.send(user);
+    return await usersService.findById(userId);    
   });
 
   // POST /users - create user
-  fastify.post('/', postUsersOpts, async (req, reply) => {
-    const userReq = req.body;
-    const user = await usersService.createUser(userReq);
-
+  fastify.post<{ Body: User }>('/', postUsersOpts, async (req, reply) => {
+    const userReq: User = req.body;
     reply.status(201);
-    reply.send(user);
+
+    return await usersService.createUser(userReq);  
   });
 
   // PUT /users/:userId - update user
-  fastify.put('/:userId', putUsersOpts, async (req, reply) => {
+  fastify.put<{ Params: {userId: string}, Body: User }>('/:userId', putUsersOpts, async (req, reply) => {
     const { userId } = req.params;
     const userReq = req.body;
-    const user = await usersService.editUser(userId, userReq);
-
-    reply.send(user);
+    
+    return await usersService.editUser(userId, userReq);
   });
 
   // DELETE /users/:userId - delete user
-  fastify.delete('/:userId', async (req, reply) => {
+  fastify.delete<{ Params: {userId: string} }>('/:userId', async (req, reply) => {
     const { userId } = req.params;
     const result = await usersService.deleteUser(userId);
     if (typeof result === 'string') {

@@ -1,15 +1,16 @@
-const { validate, v4: uuidv4 } = require('uuid');
-const Board = require('./board.model');
+import { validate, v4 as uuidv4 } from 'uuid';
+import { Board, IColumn } from './board.model';
 
 const ITEM_NOT_FOUND = -1;
 
 class RepositoryBoard {
+  arrayBoard: Board[];
   constructor() {
     this.arrayBoard = [];
   }
 
   // get
-  findById(id) {
+  findById(id: string) {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return 'id not found';
@@ -23,7 +24,7 @@ class RepositoryBoard {
   }
 
   // post
-  createBoard(board) {
+  createBoard(board: Board) {
     const createBoard = new Board(board);
     this.arrayBoard.push(createBoard);
 
@@ -31,7 +32,7 @@ class RepositoryBoard {
   }
 
   // put
-  editBoard(id, board) {
+  editBoard(id: string, board) {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return "id isn'not valid";
@@ -39,7 +40,7 @@ class RepositoryBoard {
 
     const boardDb = this.arrayBoard[index];
     if (board.columns.length !== 0) {
-      boardDb.column = RepositoryBoard.editColumn(
+      boardDb.columns = RepositoryBoard.editColumn(
         board.columns,
         boardDb.columns
       );
@@ -52,7 +53,7 @@ class RepositoryBoard {
   }
 
   // delete
-  async deleteBoard(id) {
+  async deleteBoard(id: string) {
     const index = await this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return 'id not found';
@@ -62,13 +63,13 @@ class RepositoryBoard {
     return true;
   }
 
-  receiveId(id) {
+  receiveId(id: string) {
     const index = this.arrayBoard.findIndex((board) => board.id === id);
 
     return index;
   }
 
-  static editColumn(columnsFromRequest, columnsFromDb) {
+  static editColumn(columnsFromRequest: IColumn[], columnsFromDb: IColumn[]) {
     const _columnsFromDb = columnsFromDb;
 
     columnsFromRequest.forEach((column) => {
@@ -91,9 +92,9 @@ class RepositoryBoard {
     return _columnsFromDb;
   }
 
-  static findIdInColumns(columnsFromDb, id) {
+  static findIdInColumns(columnsFromDb: IColumn[], id: string) {
     return columnsFromDb.findIndex((column) => column.id === id);
   }
 }
 
-module.exports = new RepositoryBoard();
+export = new RepositoryBoard();

@@ -1,7 +1,9 @@
-const boardsService = require('./board.service');
-const { postBoardOpts, putBoardOpts } = require('./board.schema');
+import { FastifyPluginAsync } from "fastify"
+import boardsService from './board.service';
+import { postBoardOpts, putBoardOpts } from './board.schema';
+import { Board } from "./board.model";
 
-async function boardRoutes(fastify) {
+const boardRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   // GET /boards - get all boards
   fastify.get('/', async (req, reply) => {
     const boards = await boardsService.findAll();
@@ -10,7 +12,7 @@ async function boardRoutes(fastify) {
   });
 
   // GET /boards/:boardId - get the board by id
-  fastify.get('/:boardId', async (req, reply) => {
+  fastify.get<{ Params: {boardId: string} }>('/:boardId', async (req, reply) => {
     const { boardId } = req.params;
     const board = await boardsService.findById(boardId);
 
@@ -21,7 +23,7 @@ async function boardRoutes(fastify) {
   });
 
   // POST /boards - create board
-  fastify.post('/', postBoardOpts, async (req, reply) => {
+  fastify.post<{ Body: Board }>('/', postBoardOpts, async (req, reply) => {
     const boardReq = req.body;
     const board = await boardsService.createBoard(boardReq);
 
@@ -30,7 +32,7 @@ async function boardRoutes(fastify) {
   });
 
   // PUT /boards/:boardId - update board
-  fastify.put('/:boardId', putBoardOpts, async (req, reply) => {
+  fastify.put<{ Params: {boardId: string}, Body: Board }>('/:boardId', putBoardOpts, async (req, reply) => {
     // сделать замену для данных колонки
     const { boardId } = req.params;
     const boardReq = req.body;
@@ -40,7 +42,7 @@ async function boardRoutes(fastify) {
   });
 
   // DELETE /boards/:boardId - delete board
-  fastify.delete('/:boardId', async (req, reply) => {
+  fastify.delete<{ Params: {boardId: string} }>('/:boardId', async (req, reply) => {
     const { boardId } = req.params;
     const result = await boardsService.deleteBoard(boardId);
     if (typeof result === 'string') {
