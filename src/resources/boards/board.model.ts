@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
-interface IBoard {
-  id: string;
+export interface IBoard {
+  id?: string;
   title: string;
-  columns: IColumn[];
+  columns?: IColumn[] | [];
 }
 
 export interface IColumn {
@@ -12,7 +12,7 @@ export interface IColumn {
   order: number;
 }
 
-function initColumns(columns: IColumn[] | []): IColumn[] | [] {
+function initColumns(columns: IColumn[] | [] | undefined): IColumn[] | [] {
   if (Array.isArray(columns) && columns.length > 0) {
     const _columns = columns;
 
@@ -26,12 +26,12 @@ function initColumns(columns: IColumn[] | []): IColumn[] | [] {
 }
 
 export class Board implements IBoard{
-  constructor({ id = uuidv4(), title = 'BOARD', columns = [] } = {}) {
-    this.id = id;
-    this.title = title;
-    this.columns = initColumns(columns);
+  constructor(board : IBoard) {
+    this.id = uuidv4();
+    this.title = board.title;
+    this.columns = initColumns(board.columns);
   }
-  id: string;
+  id?: string;
   title: string;
-  columns: IColumn[];
+  columns?: IColumn[];
 }

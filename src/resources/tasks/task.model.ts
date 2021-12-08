@@ -10,9 +10,18 @@ interface ITask {
   columnId: string | null;
 }
 
-class Task implements ITask {
+export interface ITaskDto {  
+  //id: undefined;
+  title: string;
+  order: number;
+  description: string;
+  userId: null | undefined;
+  boardId: string;
+  columnId: null | undefined;
+}
+
+export class Task implements ITask {
   constructor({
-    id = uuidv4(),
     title = 'TASK',
     order = 0,
     description = '',
@@ -20,7 +29,7 @@ class Task implements ITask {
     boardId= '',
     columnId= null,
   } = {}) {
-    this.id = id;
+    this.id = uuidv4();
     this.title = title;
     this.order = order;
     this.description = description;
@@ -37,4 +46,4 @@ class Task implements ITask {
   columnId: string | null;
 }
 
-export = Task;
+

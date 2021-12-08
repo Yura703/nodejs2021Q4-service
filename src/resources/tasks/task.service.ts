@@ -1,13 +1,13 @@
 import RepositoryTasks from './task.memory.repository';
-import Task from './task.model';
+import { Task, ITaskDto } from './task.model';
 
 const findById = (boardId: string, taskId: string) => RepositoryTasks.findById(boardId, taskId);
 
 const findAll = (boardId: string) => RepositoryTasks.findAll(boardId);
 
-const createTask = (boardId: string, task: Task) => RepositoryTasks.createTask(boardId, task);
+const createTask = (boardId: string, task: ITaskDto) => RepositoryTasks.createTask(boardId, task);
 
-const editTask = (boardId: string, taskId: string, task: Task) =>
+const editTask = (boardId: string, taskId: string, task: ITaskDto) =>
   RepositoryTasks.editTask(boardId, taskId, task);
 
 const deleteTask = (boardId: string, taskId: string) =>

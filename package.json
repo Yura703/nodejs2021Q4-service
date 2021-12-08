@@ -7,9 +7,11 @@
   },
   "type": "commonjs",
   "description": "REST service starter for RS School",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "tsc dist/server.js",
+    "start2": "ts-node src/server.ts",
+    "build": "tsc",
     "lint": "npm run eslint . --ext .js,.jsx,.ts,.tsx",
     "lint2": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",

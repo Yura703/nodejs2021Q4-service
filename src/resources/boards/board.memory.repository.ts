@@ -32,14 +32,15 @@ class RepositoryBoard {
   }
 
   // put
-  editBoard(id: string, board) {
+  editBoard(id: string, board: Board) {
     const index = this.receiveId(id);
     if (index === ITEM_NOT_FOUND) {
       return "id isn'not valid";
     }
 
-    const boardDb = this.arrayBoard[index];
-    if (board.columns.length !== 0) {
+    const boardDb: Board = this.arrayBoard[index];
+
+    if (board.columns && board.columns.length !== 0) {
       boardDb.columns = RepositoryBoard.editColumn(
         board.columns,
         boardDb.columns
@@ -69,27 +70,30 @@ class RepositoryBoard {
     return index;
   }
 
-  static editColumn(columnsFromRequest: IColumn[], columnsFromDb: IColumn[]) {
+  static editColumn(columnsFromRequest: IColumn[], columnsFromDb: IColumn[] | [] | undefined) {
     const _columnsFromDb = columnsFromDb;
-
-    columnsFromRequest.forEach((column) => {
-      if (validate(column.id)) {
-        const index = RepositoryBoard.findIdInColumns(columnsFromDb, column.id);
-        if (index !== ITEM_NOT_FOUND) {
-          _columnsFromDb[index] = column;
-        } else {
-          const _column = column;
-          _column.id = uuidv4();
-          _columnsFromDb.push(_column);
-        }
-      } else {
-        const _column = column;
-        _column.id = uuidv4();
-        _columnsFromDb.push(_column);
-      }
-    });
-
-    return _columnsFromDb;
+    
+    return columnsFromRequest;
+    // if (!columnsFromDb || columnsFromDb === []) {
+    //   return _columnsFromDb;
+    // } else {
+    //   columnsFromRequest.forEach((column) => {
+    //     if (column.id && validate(column.id) && columnsFromDb) {
+    //       const index = RepositoryBoard.findIdInColumns(columnsFromDb, column.id);
+    //       if (index !== ITEM_NOT_FOUND && _columnsFromDb) {
+    //         _columnsFromDb[index] = column;
+    //       } else if(_columnsFromDb && _columnsFromDb !== []) {
+    //         const _column = column;
+    //         _column.id = uuidv4();
+    //         _columnsFromDb.push(_column);
+    //       }
+    //     } else if (_columnsFromDb) {
+    //       const _column = column;
+    //       _column.id = uuidv4();
+    //       _columnsFromDb.push(_column);
+    //     }
+    //   });
+    // }  
   }
 
   static findIdInColumns(columnsFromDb: IColumn[], id: string) {

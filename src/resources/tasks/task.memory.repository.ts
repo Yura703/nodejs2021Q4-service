@@ -1,15 +1,16 @@
-import Task from './task.model';
+import { Task, ITaskDto } from './task.model';
 import RepositoryBoard from '../boards/board.memory.repository';
 
 const ITEM_NOT_FOUND = -1;
 
 class RepositoryTask {
+  arrayTask: Task[];
   constructor() {
     this.arrayTask = [];
   }
 
   // get
-  findById(boardId, taskId) {
+  findById(boardId: string, taskId: string) {
     const index = this.receiveTaskId(taskId);
     if (index === ITEM_NOT_FOUND || !RepositoryTask.receiveBoardId(boardId)) {
       return "id isn'not valid";
@@ -18,7 +19,7 @@ class RepositoryTask {
     return this.arrayTask[index];
   }
 
-  findAll(boardId) {
+  findAll(boardId: string) {
     if (!RepositoryTask.receiveBoardId(boardId)) {
       return "id isn'not valid";
     }
@@ -27,7 +28,7 @@ class RepositoryTask {
   }
 
   // post
-  createTask(boardId, task) {
+  createTask(boardId: string, task: ITaskDto) {
     if (!RepositoryTask.receiveBoardId(boardId)) {
       return "id isn'not valid";
     }
@@ -40,7 +41,7 @@ class RepositoryTask {
   }
 
   // put
-  editTask(boardId, taskId, task) {
+  editTask(boardId: string, taskId: string, task: ITaskDto) {
     const index = this.receiveTaskId(taskId);
     if (index === ITEM_NOT_FOUND || !RepositoryTask.receiveBoardId(boardId)) {
       return "id isn'not valid";
@@ -56,7 +57,7 @@ class RepositoryTask {
   }
 
   // delete
-  async deleteTask(boardId, taskId) {
+  async deleteTask(boardId: string, taskId: string) {
     const index = this.receiveTaskId(taskId);
     if (index === ITEM_NOT_FOUND || !RepositoryTask.receiveBoardId(boardId)) {
       return "id isn'not valid";
@@ -67,7 +68,7 @@ class RepositoryTask {
   }
 
   // When somebody DELETEs Board, all its Tasks should be deleted as well.
-  deleteTaskByBoardId(boardId) {
+  deleteTaskByBoardId(boardId: string) {
     const tempArray = this.arrayTask.filter((task) => task.boardId !== boardId);
     this.arrayTask = tempArray;
 
@@ -88,11 +89,11 @@ class RepositoryTask {
     return true;
   }
 
-  receiveTaskId(taskId) {
+  receiveTaskId(taskId: string) {
     return this.arrayTask.findIndex((task) => task.id === taskId);
   }
 
-  static receiveBoardId(boardId) {
+  static receiveBoardId(boardId: string) {
     const result = RepositoryBoard.findById(boardId);
     return typeof result !== 'string';
   }
