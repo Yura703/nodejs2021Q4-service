@@ -5,18 +5,16 @@ import User from "./user.model";
 
 const userRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   // GET /users - get all users (remove password from response)
-  fastify.get('/', getAllUsersOpts, async (_reply) => {
-    return  await usersService.findAll();
-  });
+  fastify.get('/', getAllUsersOpts, async () => usersService.findAll());
   
   /**
    *
    */
   // GET /users/:userId - get the user by id (ex. “/users/123”) (remove password from response)
-  fastify.get<{ Params: {userId: string} }>('/:userId', getUsersOpts, async (req, _reply) => {
+  fastify.get<{ Params: {userId: string} }>('/:userId', getUsersOpts, async (req) => {
     const { userId } = req.params;
 
-    return await usersService.findById(userId);    
+    return usersService.findById(userId);    
   });
 
   // POST /users - create user
@@ -24,15 +22,15 @@ const userRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
     const userReq: User = req.body;
     reply.status(201);
 
-    return await usersService.createUser(userReq);  
+    return usersService.createUser(userReq);  
   });
 
   // PUT /users/:userId - update user
-  fastify.put<{ Params: {userId: string}, Body: User }>('/:userId', putUsersOpts, async (req, reply) => {
+  fastify.put<{ Params: {userId: string}, Body: User }>('/:userId', putUsersOpts, async (req) => {
     const { userId } = req.params;
     const userReq = req.body;
     
-    return await usersService.editUser(userId, userReq);
+    return usersService.editUser(userId, userReq);
   });
 
   // DELETE /users/:userId - delete user

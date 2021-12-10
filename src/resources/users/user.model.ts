@@ -14,9 +14,13 @@ class User implements IUser {
     this.login = login;
     this.password = password;
   }
+
   id: string;
+
   name: string;
+
   login: string;
+
   password: string;
 }
 

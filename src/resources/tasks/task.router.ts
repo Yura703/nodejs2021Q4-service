@@ -1,20 +1,21 @@
 import { FastifyPluginAsync } from "fastify"
-const tasksService = require('./task.service');
-const { postTaskOpts } = require('./task.schema');
+import tasksService from './task.service';
+import { postTaskOpts } from './task.schema';
+import { ITaskDto } from "./task.model";
 
 const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   // GET boards/:boardId/tasks - get all tasks
-  fastify.get<{ Params: {boardId: string} }>('/', async (req, reply) => {
+  fastify.get<{ Params: {boardId: string} }>('/', async (req) => {
     const { boardId } = req.params;
     
-    return await tasksService.findAll(boardId);
+    return tasksService.findAll(boardId);
   });
 
   // GET boards/:boardId/tasks/:taskId - get the task by id
   fastify.get<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {
     const { boardId, taskId } = req.params;
 
-    const task = await tasksService.findById(boardId, taskId);
+    const task = tasksService.findById(boardId, taskId);
 
     if (typeof task === 'string') {
       reply.status(404);
@@ -25,20 +26,20 @@ const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   });
 
   // POST boards/:boardId/tasks - create task
-  fastify.post<{ Params: {boardId: string} }>('/', postTaskOpts, async (req, reply) => {
+  fastify.post<{ Params: {boardId: string}, Body: ITaskDto }>('/', postTaskOpts, async (req, reply) => {
     const taskReq = req.body;
     const { boardId } = req.params;
-    const task = await tasksService.createTask(boardId, taskReq);
+    const task = tasksService.createTask(boardId, taskReq);
 
     reply.status(201);
     reply.send(task);
   });
 
   // PUT boards/:boardId/tasks/:taskId - update task
-  fastify.put<{ Params: {boardId: string, taskId: string} }>('/:taskId', postTaskOpts, async (req, reply) => {
+  fastify.put<{ Params: {boardId: string, taskId: string}, Body: ITaskDto }>('/:taskId', postTaskOpts, async (req, reply) => {
     const { boardId, taskId } = req.params;
     const taskReq = req.body;
-    const task = await tasksService.editTask(boardId, taskId, taskReq);
+    const task = tasksService.editTask(boardId, taskId, taskReq);
 
     reply.send(task);
   });

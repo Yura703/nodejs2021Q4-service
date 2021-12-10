@@ -1,4 +1,4 @@
-const postTaskOpts = {
+export const postTaskOpts = {
   schema: {
     body: {
       type: 'object',
@@ -29,4 +29,3 @@ const postTaskOpts = {
   },
 };
 
-module.exports = { postTaskOpts };

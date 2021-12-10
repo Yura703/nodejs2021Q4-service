@@ -11,7 +11,7 @@ interface ITask {
 }
 
 export interface ITaskDto {  
-  //id: undefined;
+  // id: undefined;
   title: string;
   order: number;
   description: string;
@@ -37,12 +37,19 @@ export class Task implements ITask {
     this.boardId = boardId;
     this.columnId = columnId;
   }
+
   id: string;
+
   title: string;
+
   order: number;
+
   description: string;
+
   userId: string | null;
+
   boardId: string;
+
   columnId: string | null;
 }
 

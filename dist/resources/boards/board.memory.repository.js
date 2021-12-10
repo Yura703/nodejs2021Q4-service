@@ -11,10 +11,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const board_model_1 = require("./board.model");
 const ITEM_NOT_FOUND = -1;
 class RepositoryBoard {
+    /**
+     * Constructor that creates instances of the class RepositoryBoard
+     * @returns empty array
+     */
     constructor() {
         this.arrayBoard = [];
     }
-    // get
+    /**
+     * Get object Board by ID from Repository
+     * @param id - object Board ID in uuid format
+     * @returns object Board or error message
+     */
     findById(id) {
         const index = this.receiveId(id);
         if (index === ITEM_NOT_FOUND) {
@@ -22,30 +30,45 @@ class RepositoryBoard {
         }
         return this.arrayBoard[index];
     }
+    /**
+     * Get all objects Board from Repository
+     * @returns all objects Board from Repository
+     */
     findAll() {
         return this.arrayBoard;
     }
-    // post
+    /**
+     * Create new object Board in Repository
+     * @param board - the Board object received from the user
+     * @returns board object created in the Repository
+     */
     createBoard(board) {
         const createBoard = new board_model_1.Board(board);
         this.arrayBoard.push(createBoard);
         return createBoard;
     }
-    // put
+    /**
+     *
+     * @param id -
+     * @param board -
+     * @returns
+     */
     editBoard(id, board) {
         const index = this.receiveId(id);
         if (index === ITEM_NOT_FOUND) {
             return "id isn'not valid";
         }
         const boardDb = this.arrayBoard[index];
-        if (board.columns && board.columns.length !== 0) {
-            boardDb.columns = RepositoryBoard.editColumn(board.columns, boardDb.columns);
-        }
+        boardDb.columns = board.columns;
         boardDb.title = board.title;
         this.arrayBoard[index] = boardDb;
         return boardDb;
     }
-    // delete
+    /**
+     *
+     * @param id -
+     * @returns
+     */
     deleteBoard(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const index = yield this.receiveId(id);
@@ -56,36 +79,14 @@ class RepositoryBoard {
             return true;
         });
     }
+    /**
+     *
+     * @param id -
+     * @returns
+     */
     receiveId(id) {
         const index = this.arrayBoard.findIndex((board) => board.id === id);
         return index;
-    }
-    static editColumn(columnsFromRequest, columnsFromDb) {
-        const _columnsFromDb = columnsFromDb;
-        return columnsFromRequest;
-        // if (!columnsFromDb || columnsFromDb === []) {
-        //   return _columnsFromDb;
-        // } else {
-        //   columnsFromRequest.forEach((column) => {
-        //     if (column.id && validate(column.id) && columnsFromDb) {
-        //       const index = RepositoryBoard.findIdInColumns(columnsFromDb, column.id);
-        //       if (index !== ITEM_NOT_FOUND && _columnsFromDb) {
-        //         _columnsFromDb[index] = column;
-        //       } else if(_columnsFromDb && _columnsFromDb !== []) {
-        //         const _column = column;
-        //         _column.id = uuidv4();
-        //         _columnsFromDb.push(_column);
-        //       }
-        //     } else if (_columnsFromDb) {
-        //       const _column = column;
-        //       _column.id = uuidv4();
-        //       _columnsFromDb.push(_column);
-        //     }
-        //   });
-        // }  
-    }
-    static findIdInColumns(columnsFromDb, id) {
-        return columnsFromDb.findIndex((column) => column.id === id);
     }
 }
 module.exports = new RepositoryBoard();

@@ -1,5 +1,7 @@
 "use strict";
-const postTaskOpts = {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.postTaskOpts = void 0;
+exports.postTaskOpts = {
     schema: {
         body: {
             type: 'object',
@@ -29,4 +31,3 @@ const postTaskOpts = {
         },
     },
 };
-module.exports = { postTaskOpts };

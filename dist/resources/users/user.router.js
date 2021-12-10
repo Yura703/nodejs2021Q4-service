@@ -15,28 +15,26 @@ const user_service_1 = __importDefault(require("./user.service"));
 const user_schema_1 = require("./user.schema");
 const userRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
     // GET /users - get all users (remove password from response)
-    fastify.get('/', user_schema_1.getAllUsersOpts, (_reply) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield user_service_1.default.findAll();
-    }));
+    fastify.get('/', user_schema_1.getAllUsersOpts, () => __awaiter(void 0, void 0, void 0, function* () { return user_service_1.default.findAll(); }));
     /**
      *
      */
     // GET /users/:userId - get the user by id (ex. “/users/123”) (remove password from response)
-    fastify.get('/:userId', user_schema_1.getUsersOpts, (req, _reply) => __awaiter(void 0, void 0, void 0, function* () {
+    fastify.get('/:userId', user_schema_1.getUsersOpts, (req) => __awaiter(void 0, void 0, void 0, function* () {
         const { userId } = req.params;
-        return yield user_service_1.default.findById(userId);
+        return user_service_1.default.findById(userId);
     }));
     // POST /users - create user
     fastify.post('/', user_schema_1.postUsersOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const userReq = req.body;
         reply.status(201);
-        return yield user_service_1.default.createUser(userReq);
+        return user_service_1.default.createUser(userReq);
     }));
     // PUT /users/:userId - update user
-    fastify.put('/:userId', user_schema_1.putUsersOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
+    fastify.put('/:userId', user_schema_1.putUsersOpts, (req) => __awaiter(void 0, void 0, void 0, function* () {
         const { userId } = req.params;
         const userReq = req.body;
-        return yield user_service_1.default.editUser(userId, userReq);
+        return user_service_1.default.editUser(userId, userReq);
     }));
     // DELETE /users/:userId - delete user
     fastify.delete('/:userId', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {

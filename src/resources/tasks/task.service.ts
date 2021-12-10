@@ -1,5 +1,5 @@
 import RepositoryTasks from './task.memory.repository';
-import { Task, ITaskDto } from './task.model';
+import { ITaskDto } from './task.model';
 
 const findById = (boardId: string, taskId: string) => RepositoryTasks.findById(boardId, taskId);
 

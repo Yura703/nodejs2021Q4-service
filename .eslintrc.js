@@ -19,16 +19,28 @@ module.exports = {
   },
   settings: {
     noInlineConfig: true,
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
   plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],
   extends: [
     'eslint:recommended',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:node/recommended',
     'airbnb-base',
     'prettier',
   ],
   rules: {
+    'node/no-missing-import': [
+      'error',
+      {
+        tryExtensions: ['.js', '.ts', '.json', '.node'],
+      },
+    ],
     'import/extensions': 'off',
     'linebreak-style': 'off',
     'node/no-unsupported-features/es-syntax': 'off',

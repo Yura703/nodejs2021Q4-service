@@ -4,8 +4,11 @@ import { postBoardOpts, putBoardOpts } from './board.schema';
 import { Board } from "./board.model";
 
 const boardRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
-  // GET /boards - get all boards
-  fastify.get('/', async (req, reply) => {
+  
+  /**
+   * GET router 
+   */
+  fastify.get('/', async (_req, reply) => {
     const boards = await boardsService.findAll();
 
     reply.send(boards);

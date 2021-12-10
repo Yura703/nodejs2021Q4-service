@@ -9,7 +9,7 @@
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
   "scripts": {
-    "start": "tsc dist/server.js",
+    "start": "tsc && dist/server.js",
     "start2": "ts-node src/server.ts",
     "build": "tsc",
     "lint": "npm run eslint . --ext .js,.jsx,.ts,.tsx",

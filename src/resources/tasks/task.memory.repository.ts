@@ -5,6 +5,7 @@ const ITEM_NOT_FOUND = -1;
 
 class RepositoryTask {
   arrayTask: Task[];
+
   constructor() {
     this.arrayTask = [];
   }
