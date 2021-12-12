@@ -48,10 +48,10 @@ class RepositoryBoard {
         return createBoard;
     }
     /**
-     *
-     * @param id -
-     * @param board -
-     * @returns
+     * Modifying the Board object while keeping the original ID
+     * @param id - the id of the Board object to be modified
+     * @param board - Board object with new data
+     * @returns a Board object saved in the Repository after a change or an error message
      */
     editBoard(id, board) {
         const index = this.receiveId(id);
@@ -65,9 +65,9 @@ class RepositoryBoard {
         return boardDb;
     }
     /**
-     *
-     * @param id -
-     * @returns
+     * Removing a Board object by ID from the Repository
+     * @param id - D of the Board object to remove
+     * @returns true on success, on error - an error message
      */
     deleteBoard(id) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -80,9 +80,9 @@ class RepositoryBoard {
         });
     }
     /**
-     *
-     * @param id -
-     * @returns
+     * Searching the Repository for an object with a given ID
+     * @param id - Object ID to search
+     * @returns index of the object with the given ID in the Repository array, or -1 if it is absent
      */
     receiveId(id) {
         const index = this.arrayBoard.findIndex((board) => board.id === id);

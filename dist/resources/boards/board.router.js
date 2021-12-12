@@ -14,12 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const board_service_1 = __importDefault(require("./board.service"));
 const board_schema_1 = require("./board.schema");
 const boardRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
-    // GET /boards - get all boards
-    fastify.get('/', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
+    /**
+     * GET router no parameters
+     * @returns send  all objects Board and status code
+     */
+    fastify.get('/', (_req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const boards = yield board_service_1.default.findAll();
         reply.send(boards);
     }));
-    // GET /boards/:boardId - get the board by id
+    /**
+      * GET router with parameters
+      * @param params - boardId
+      * @returns send objects Board by ID from Repository and status code
+     */
     fastify.get('/:boardId', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { boardId } = req.params;
         const board = yield board_service_1.default.findById(boardId);
@@ -28,22 +35,34 @@ const boardRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () 
         }
         reply.send(board);
     }));
-    // POST /boards - create board
+    /**
+    * Create new object Board in Repository
+    * @param body - the Board object received from the user
+    * @returns send board object created in the Repository and status code
+   */
     fastify.post('/', board_schema_1.postBoardOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const boardReq = req.body;
         const board = yield board_service_1.default.createBoard(boardReq);
         reply.status(201);
         reply.send(board);
     }));
-    // PUT /boards/:boardId - update board
+    /**
+      * Modifying the Board object while keeping the original ID
+      * @param params - the id of the Board object to be modified
+      * @param body - Board object with new data
+      * @returns a Board object saved in the Repository after a change or an error message and status code
+   */
     fastify.put('/:boardId', board_schema_1.putBoardOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
-        // сделать замену для данных колонки
         const { boardId } = req.params;
         const boardReq = req.body;
         const board = yield board_service_1.default.editBoard(boardId, boardReq);
         reply.send(board);
     }));
-    // DELETE /boards/:boardId - delete board
+    /**
+      * Removing a Board object by ID and tasks from the removed board from the Repository
+      * @param params - ID of the Board object to remove
+      * @returns true on success, on error - an error message and status code
+   */
     fastify.delete('/:boardId', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { boardId } = req.params;
         const result = yield board_service_1.default.deleteBoard(boardId);

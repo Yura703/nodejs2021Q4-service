@@ -33,6 +33,7 @@ export class Board implements IBoard{
   /**
    * Constructor forming an object of the Board class
    * @param board - the IBoard interface object received from the user
+   *  @returns object of the Board class 
    */
   constructor(board : IBoard) {
     this.id = uuidv4();

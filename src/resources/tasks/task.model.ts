@@ -10,8 +10,7 @@ interface ITask {
   columnId: string | null;
 }
 
-export interface ITaskDto {  
-  // id: undefined;
+export interface ITaskDto { 
   title: string;
   order: number;
   description: string;
@@ -21,6 +20,16 @@ export interface ITaskDto {
 }
 
 export class Task implements ITask {
+  /**
+   * Constructor forming an object of the Task class
+   * @param title - task name
+   * @param order - number order
+   * @param description - task description
+   * @param userId - user id
+   * @param boardId - board id
+   * @param columnId - column id
+   * @returns object of the Task class
+   */
   constructor({
     title = 'TASK',
     order = 0,

@@ -32,7 +32,7 @@ const editBoard = (id: string, board: Board) => RepositoryBoards.editBoard(id, b
 
 /**
   * Removing a Board object by ID and tasks from the removed board from the Repository
-   * @param id - D of the Board object to remove 
+   * @param id - ID of the Board object to remove 
    * @returns true on success, on error - an error message
  */
 const deleteBoard = (id: string) => {
