@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.putUsersOpts = exports.postUsersOpts = exports.getAllUsersOpts = exports.getUsersOpts = void 0;
-const getUsersOpts = {
+var getUsersOpts = {
     schema: {
         response: {
             200: {
@@ -16,7 +16,7 @@ const getUsersOpts = {
     },
 };
 exports.getUsersOpts = getUsersOpts;
-const getAllUsersOpts = {
+var getAllUsersOpts = {
     schema: {
         response: {
             200: {
@@ -34,7 +34,7 @@ const getAllUsersOpts = {
     },
 };
 exports.getAllUsersOpts = getAllUsersOpts;
-const postUsersOpts = {
+var postUsersOpts = {
     schema: {
         body: {
             type: 'object',
@@ -58,7 +58,7 @@ const postUsersOpts = {
     },
 };
 exports.postUsersOpts = postUsersOpts;
-const putUsersOpts = {
+var putUsersOpts = {
     schema: {
         body: {
             type: 'object',
