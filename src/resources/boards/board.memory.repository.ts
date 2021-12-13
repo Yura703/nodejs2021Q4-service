@@ -68,7 +68,7 @@ class RepositoryBoard {
 
   /**
    * Removing a Board object by ID from the Repository
-   * @param id - D of the Board object to remove 
+   * @param id - ID of the Board object to remove 
    * @returns true on success, on error - an error message
    */
   async deleteBoard(id: string) {
