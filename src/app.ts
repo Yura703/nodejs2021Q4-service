@@ -3,8 +3,28 @@ import swaggerUI from 'fastify-swagger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import  config  from './common/config';
 
-const server =  fastify({ logger: true });
+const server =  fastify({ 
+  logger: {
+    level: config.LEVEL_LOG,
+    file: './../logs/log.log',
+    serializers: {
+      res(reply) {
+        return {
+          statusCode: reply.statusCode
+        }
+      },
+      req(request) {
+        return {
+          method: request.method,
+          url: request.url,
+          parameters: request.params,
+        }
+      }
+    }
+  } 
+});
 
 server.register(swaggerUI, {
   exposeRoute: true,

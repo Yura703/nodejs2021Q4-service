@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'path';
+import { LoggerLevel } from './log-level';
 
 dotenv.config({
   path: path.join(__dirname, '../../.env')
@@ -7,6 +8,7 @@ dotenv.config({
 
 export default {
   PORT: process.env.PORT,
+  LEVEL_LOG: LoggerLevel[process.env.LEVEL_LOG ? +process.env.LEVEL_LOG : 3],
   NODE_ENV: process.env.NODE_ENV,
   MONGO_CONNECTION_STRING: process.env.MONGO_CONNECTION_STRING,
   JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,

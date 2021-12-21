@@ -7,7 +7,7 @@ interface IUser {
   password: string;
 }
 
-class User implements IUser {
+export class User implements IUser {
   /**
    * Constructor forming an object of the User class
    * @param name - the user name
@@ -31,4 +31,4 @@ class User implements IUser {
   password: string;
 }
 
-export = User;
+export type UserDto = Omit<IUser, 'password'>;

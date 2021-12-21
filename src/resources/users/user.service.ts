@@ -1,6 +1,6 @@
 import RepositoryUsers from './user.memory.repository';
 import RepositoryTasks from '../tasks/task.memory.repository';
-import User from './user.model';
+import { User } from './user.model';
 
 /**
  * Get object User by ID from Repository

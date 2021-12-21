@@ -1,4 +1,4 @@
-import User from './user.model';
+import { User } from './user.model';
 
 const ITEM_NOT_FOUND = -1;
 
