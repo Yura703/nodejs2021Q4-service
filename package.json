@@ -8,7 +8,7 @@
   "type": "commonjs",
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
-  "scripts": {    
+  "scripts": {
     "start": "ts-node src/server.ts",
     "build": "tsc",
     "lint1": "eslint . --ext .js,.jsx,.ts,.tsx",
@@ -51,12 +51,15 @@
     "dotenv": "10.0.0",
     "fastify": "^3.24.1",
     "fastify-swagger": "^4.12.6",
+    "morgan": "^1.10.0",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.2",
     "uuid": "8.3.2",
-    "yamljs": "0.3.0",
-    "ts-node": "^10.4.0"
+    "winston": "^3.3.3",
+    "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@types/morgan": "^1.9.3",
     "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",

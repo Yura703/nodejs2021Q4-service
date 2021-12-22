@@ -1,4 +1,6 @@
 import fastify from 'fastify';
+// import winston from 'winston';
+// import morgan from 'morgan';
 import swaggerUI from 'fastify-swagger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
@@ -6,9 +8,10 @@ import taskRouter from './resources/tasks/task.router';
 import  config  from './common/config';
 
 const server =  fastify({ 
-  logger: {
+  logger: 
+{
     level: config.LEVEL_LOG,
-    file: './../logs/log.log',
+    file: 'log.log',
     serializers: {
       res(reply) {
         return {
@@ -19,12 +22,22 @@ const server =  fastify({
         return {
           method: request.method,
           url: request.url,
+          query: request.query,
           parameters: request.params,
+          body: request.body,
         }
       }
     }
   } 
-});
+   }
+);
+
+server.addHook('preHandler', (req, _reply, done) => {
+  if (req.body) {
+    req.log.info({ body: req.body }, 'parsed body')
+  }
+  done()
+})
 
 server.register(swaggerUI, {
   exposeRoute: true,
@@ -37,6 +50,8 @@ server.register(swaggerUI, {
     },
   },
 });
+
+// server.register(morgan('dev'));
 
 server.register(userRouter, {
   prefix: '/users',
