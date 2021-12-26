@@ -43,15 +43,14 @@ server.register(taskRouter, {
   prefix: '/boards/:boardId/tasks',
 });
 
-// process.on('uncaughtException', (reason) => {
-//   log.error(`CAPTURED ERROR:${reason.message}`);
-//   process.exit(1);
-// });
+process.on('uncaughtException', (error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
 
-
-// process.on('unhandledRejection', (reason: Error) => {
-//   logger.error(`UNHANDLED REJECTION DETECTED: ${reason.message}`);
-//   process.exit(1);
-// });
+process.on('unhandledRejection', (error: Error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
 
 export = server;
