@@ -48,9 +48,13 @@ process.on('uncaughtException', (error) => {
     process.exit(1);
   });
 
+   // throw Error('Oops!')
+
 process.on('unhandledRejection', (error: Error) => {
-    console.error(error.message);
+    console.error( error.message);
     process.exit(1);
   });
+
+  // Promise.reject(Error('Oops!'));
 
 export = server;
