@@ -1,3 +1,4 @@
+### [Yuri Lapitski](lyurik@tut.by)
 # RS School REST service
 
 ## Prerequisites
