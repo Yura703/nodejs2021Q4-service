@@ -1,13 +1,13 @@
 import fastify from 'fastify';
 import swaggerUI from 'fastify-swagger';
-import { logger } from './logger';
+import { pinoLogger } from './logger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 
 
 // logger: logger as unknown as FastifyLoggerInstance,++++++++++++++++++++++++++++++++
-const server =  fastify({ logger} );
+const server =  fastify({ logger: pinoLogger} );
   
 server.addHook('preHandler', (req, _reply, done) => {
   if (req.body) {
@@ -15,6 +15,11 @@ server.addHook('preHandler', (req, _reply, done) => {
   }
   done()
 })
+
+server.setErrorHandler((error, _request, reply) => {
+reply.status(error.statusCode || 500).send(error);
+});
+
 
 server.register(swaggerUI, {
   exposeRoute: true,
