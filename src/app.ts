@@ -1,4 +1,5 @@
 import fastify from 'fastify';
+import { exit } from 'process';
 import swaggerUI from 'fastify-swagger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
@@ -43,16 +44,16 @@ server.register(taskRouter, {
   prefix: '/boards/:boardId/tasks',
 });
 
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', (error: Error) => {
     console.error(error.message);
-    process.exit(1);
+    exit(1);
   });
 
    // throw Error('Oops!')
 
 process.on('unhandledRejection', (error: Error) => {
     console.error( error.message);
-    process.exit(1);
+    exit(1);
   });
 
   // Promise.reject(Error('Oops!'));

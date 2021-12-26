@@ -1,5 +1,6 @@
 import  config  from './common/config';
 import fastify from './app';
+import { exit } from 'process';
 
 const PORT =  config.PORT ?? 4000;
 
@@ -12,7 +13,7 @@ const start = async () => {
     await fastify.listen(PORT);
   } catch (error) {
     fastify.log.error(error);
-    process.exit(1);
+    exit(1);
   }
 };
 
