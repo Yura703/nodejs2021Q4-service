@@ -10,4 +10,8 @@ COPY . .
 
 EXPOSE 4000
 
+RUN npx tsc
+
+# CMD [ "node", "./dist/server.js" ]
+
 CMD [ "npm", "run", "start" ]

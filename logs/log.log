@@ -1,4 +1,0 @@
-{"level":30,"time":1641380912683,"pid":33304,"hostname":"DESKTOP-U7HBUMQ","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641380932352,"pid":33304,"hostname":"DESKTOP-U7HBUMQ","reqId":"req-1","req":{"method":"POST","url":"/boards","query":{"/boards":null},"parameters":{},"body":null},"msg":"incoming request"}
-{"level":30,"time":1641380932357,"pid":33304,"hostname":"DESKTOP-U7HBUMQ","reqId":"req-1","body":{"title":"Autotest board","columns":[{"title":"Backlog","order":22},{"title":"Sprint","order":2}]},"msg":"parsed body"}
-{"level":30,"time":1641380932374,"pid":33304,"hostname":"DESKTOP-U7HBUMQ","reqId":"req-1","res":{"statusCode":201},"responseTime":20.91409993171692,"msg":"request completed"}

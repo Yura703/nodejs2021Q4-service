@@ -1,19 +1,30 @@
 version: '3'
+
 services:
     node:
+        image: service
         build: .
-        porst:
+        command: npm run start
+        porsts:
             - ${PORT}:${PORT}
         depends_on:
             - postgres
         enviromment:
-            - PORT=8080
+            - PORT:${PORT}
+        logging: 
+            driver: json-file
+        volumes:
+            - ./logs:/var/lib/docker/containers/*
+        restart: always
     postgres:
         build: ./database/
         ports:
-            ${POSTGRES_PORT}:${POSTGRES_PORT}
+            ${POSTGRES_PORT}: ${POSTGRES_PORT}
+        volumes: 
+            - ./database:/var/lib/postgresql/data    
         enviromment:
+            POSTGRES_PORT: ${POSTGRES_PORT}
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_DB: ${POSTGRES_DB}
-            
+            PGDATA: ${PGDATA}
