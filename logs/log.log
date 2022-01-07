@@ -1,17 +1,7 @@
-{"level":30,"time":1641592319149,"pid":31,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592327319,"pid":46,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592334818,"pid":61,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592371890,"pid":40,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592379706,"pid":55,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592480944,"pid":30,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592493529,"pid":45,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592505207,"pid":60,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592666282,"pid":30,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592680459,"pid":45,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641592689556,"pid":60,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641593142709,"pid":30,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641593153325,"pid":45,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641593159081,"pid":60,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641593451310,"pid":31,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641593468833,"pid":46,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641593477604,"pid":61,"hostname":"4bed35b289fb","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1641596182898,"pid":31,"hostname":"f38efdf4448d","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1641596254260,"pid":31,"hostname":"f38efdf4448d","reqId":"req-1","req":{"method":"POST","url":"/boards","query":{"/boards":null},"parameters":{},"body":null},"msg":"incoming request"}
+{"level":30,"time":1641596254265,"pid":31,"hostname":"f38efdf4448d","reqId":"req-1","body":{"title":"Autotest board","columns":[{"title":"Backlog","order":22},{"title":"Sprint","order":2}]},"msg":"parsed body"}
+{"level":30,"time":1641596254271,"pid":31,"hostname":"f38efdf4448d","reqId":"req-1","res":{"statusCode":201},"responseTime":10.139600000344217,"msg":"request completed"}
+{"level":30,"time":1641596255314,"pid":31,"hostname":"f38efdf4448d","reqId":"req-2","req":{"method":"POST","url":"/boards","query":{"/boards":null},"parameters":{},"body":null},"msg":"incoming request"}
+{"level":30,"time":1641596255315,"pid":31,"hostname":"f38efdf4448d","reqId":"req-2","body":{"title":"Autotest board","columns":[{"title":"Backlog","order":22},{"title":"Sprint","order":2}]},"msg":"parsed body"}
+{"level":30,"time":1641596255316,"pid":31,"hostname":"f38efdf4448d","reqId":"req-2","res":{"statusCode":201},"responseTime":1.0679999999701977,"msg":"request completed"}
