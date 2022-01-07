@@ -10,7 +10,7 @@ const PORT =  config.PORT ?? 4000;
 const start = async () => {
   try {
     await fastify.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server11 listenen on ${PORT} port`);
+      console.log(`Server listenen on ${PORT} port`);
       
     });
   } catch (error) {
