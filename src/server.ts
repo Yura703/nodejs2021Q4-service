@@ -9,7 +9,10 @@ const PORT =  config.PORT ?? 4000;
  */
 const start = async () => {
   try {
-    await fastify.listen(PORT, "0.0.0.0");
+    await fastify.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server listenen on ${PORT} port`);
+      
+    });
   } catch (error) {
     fastify.log.error(error);
     process.exit(1);

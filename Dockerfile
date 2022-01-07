@@ -4,13 +4,14 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install 
 
 COPY . .
 
-EXPOSE 4000
+ARG PORT
+EXPOSE ${PORT}
 
-RUN npx tsc
+# RUN npx tsc
 
 # CMD [ "node", "./dist/server.js" ]
 

@@ -1,30 +1,43 @@
 version: '3'
 
 services:
-    node:
-        image: service
-        build: .
-        command: npm run start
-        porsts:
-            - ${PORT}:${PORT}
-        depends_on:
-            - postgres
-        enviromment:
-            - PORT:${PORT}
-        logging: 
-            driver: json-file
-        volumes:
-            - ./logs:/var/lib/docker/containers/*
-        restart: always
-    postgres:
-        build: ./database/
-        ports:
-            ${POSTGRES_PORT}: ${POSTGRES_PORT}
-        volumes: 
-            - ./database:/var/lib/postgresql/data    
-        enviromment:
-            POSTGRES_PORT: ${POSTGRES_PORT}
-            POSTGRES_USER: ${POSTGRES_USER}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-            POSTGRES_DB: ${POSTGRES_DB}
-            PGDATA: ${PGDATA}
+
+  app:
+    image: service
+    build: .     
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - net-custom
+    depends_on:
+      - postgres
+    restart: on-failure
+    volumes:
+      - logs:/app/logs
+      - ./src:/app/src
+    environment:
+      PORT: ${PORT}
+
+  postgres:
+    image: postgres
+    build: ./database/
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      - net-custom
+    restart: always
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: ${PGDATA}
+
+networks:
+  net-custom:
+    driver: bridge
+
+volumes:
+  logs:
+  database:

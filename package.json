@@ -9,9 +9,8 @@
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "ts-node-dev --poll src/server.ts",
     "build": "tsc",
-    "lint1": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
@@ -55,6 +54,7 @@
     "pino": "^7.6.1",
     "query-string": "^7.0.1",
     "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.2",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
