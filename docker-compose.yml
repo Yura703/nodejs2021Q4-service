@@ -11,9 +11,11 @@ services:
       - net-custom
     depends_on:
       - postgres
-    restart: on-failure
+    restart: always
+    logging: 
+      driver: json-file
     volumes:
-      - logs:/app/logs
+      - ./logs:/app/logs
       - ./src:/app/src
     environment:
       PORT: ${PORT}

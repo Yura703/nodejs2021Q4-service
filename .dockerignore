@@ -2,5 +2,6 @@ node_modules
 .github
 .vscode
 dist
-# logs
 database
+test
+

@@ -9,7 +9,7 @@
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
   "scripts": {
-    "start": "ts-node-dev --poll src/server.ts",
+    "start": "nodemon --exitcrash src/server.ts",
     "build": "tsc",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
@@ -44,22 +44,20 @@
       "npm run lint"
     ]
   },
-  "dependencies": {
-    "-": "0.0.1",
-    "@types/node": "^16.11.11",
+  "dependencies": {   
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
     "fastify": "^3.24.1",
     "fastify-swagger": "^4.12.6",
     "pino": "^7.6.1",
-    "query-string": "^7.0.1",
-    "ts-node": "^10.4.0",
+    "query-string": "^7.0.1",   
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.2",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@types/node": "^16.11.11",
     "@types/pino": "^7.0.5",
     "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
