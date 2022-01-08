@@ -1,7 +1,0 @@
-{"level":30,"time":1641596182898,"pid":31,"hostname":"f38efdf4448d","msg":"Server listening at http://0.0.0.0:4000"}
-{"level":30,"time":1641596254260,"pid":31,"hostname":"f38efdf4448d","reqId":"req-1","req":{"method":"POST","url":"/boards","query":{"/boards":null},"parameters":{},"body":null},"msg":"incoming request"}
-{"level":30,"time":1641596254265,"pid":31,"hostname":"f38efdf4448d","reqId":"req-1","body":{"title":"Autotest board","columns":[{"title":"Backlog","order":22},{"title":"Sprint","order":2}]},"msg":"parsed body"}
-{"level":30,"time":1641596254271,"pid":31,"hostname":"f38efdf4448d","reqId":"req-1","res":{"statusCode":201},"responseTime":10.139600000344217,"msg":"request completed"}
-{"level":30,"time":1641596255314,"pid":31,"hostname":"f38efdf4448d","reqId":"req-2","req":{"method":"POST","url":"/boards","query":{"/boards":null},"parameters":{},"body":null},"msg":"incoming request"}
-{"level":30,"time":1641596255315,"pid":31,"hostname":"f38efdf4448d","reqId":"req-2","body":{"title":"Autotest board","columns":[{"title":"Backlog","order":22},{"title":"Sprint","order":2}]},"msg":"parsed body"}
-{"level":30,"time":1641596255316,"pid":31,"hostname":"f38efdf4448d","reqId":"req-2","res":{"statusCode":201},"responseTime":1.0679999999701977,"msg":"request completed"}
