@@ -24,7 +24,7 @@ git checkout Docker-basics
 npm install
 ```
 
-## Start docker
+## Start docker-compose
 
 ```
 docker-compose up
@@ -37,7 +37,32 @@ docker-compose up
 ```
 To stop use Ctrl+C  (thrice)
 
+Viewing images
+```
+docker images
+```
 
+Viewing containers
+```
+  docker ps
+```
+
+Stop all containers
+```
+docker stop $(docker ps -a -q)
+```
+
+Delete all containers
+```
+docker rm $(docker ps -a -q)
+```
+
+Delete all images
+```
+docker system prune -a
+or
+docker rmi $(docker images -q)
+```
 
 ## Testing
 
