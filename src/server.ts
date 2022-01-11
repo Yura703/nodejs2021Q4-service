@@ -15,7 +15,8 @@ const start = async () => {
     });
   } catch (error) {
     fastify.log.error(error);
-    process.exit(1);
+    throw new Error("Ops");
+    // process.exit(1);
   }
 };
 

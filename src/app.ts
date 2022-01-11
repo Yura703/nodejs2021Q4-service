@@ -45,14 +45,16 @@ server.register(taskRouter, {
 
 process.on('uncaughtException', (error) => {
     console.error(error.message);
-    process.exit(1);
+    throw new Error("Ops");
+    // process.exit(1);
   });
 
    // throw Error('Oops!')
 
 process.on('unhandledRejection', (error: Error) => {
     console.error( error.message);
-    process.exit(1);
+    throw new Error("Ops");
+    // process.exit(1);
   });
 
   // Promise.reject(Error('Oops!'));
