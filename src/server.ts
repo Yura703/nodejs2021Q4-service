@@ -1,5 +1,9 @@
 import  config  from './common/config';
 import fastify from './app';
+//import connect from './appDb';
+import "reflect-metadata";
+import { createConnection } from "typeorm";
+import connectionOptions from "./ormconfig";
 
 const PORT =  config.PORT ?? 4000;
 
@@ -9,10 +13,19 @@ const PORT =  config.PORT ?? 4000;
  */
 const start = async () => {
   try {
-    await fastify.listen(PORT, "0.0.0.0", () => {
+   
+    fastify.listen(PORT, "0.0.0.0", () => {
       console.log(`Server listenen on ${PORT} port`);
       
     });
+
+    await createConnection(connectionOptions)
+      .then(() => {
+          console.log('Connected DB');
+          
+      })
+      .catch(error => console.log(error));
+
   } catch (error) {
     fastify.log.error(error);
     throw new Error("Ops");
@@ -21,3 +34,6 @@ const start = async () => {
 };
 
 start();
+
+
+

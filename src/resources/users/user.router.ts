@@ -1,7 +1,8 @@
 import { FastifyPluginAsync } from "fastify"
 import usersService from './user.service';
 import { getUsersOpts, getAllUsersOpts, postUsersOpts, putUsersOpts } from './user.schema';
-import { User } from "./user.model";
+//import { User } from "./user.model";
+import { User } from "./User";
 
 const userRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   

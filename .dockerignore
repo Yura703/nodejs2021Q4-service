@@ -1,7 +1,14 @@
-node_modules
+**/node_modules
 .github
 .vscode
 dist
 database
 # test
-
+**/README.md
+**/logs
+**/.env*
+**/docker-compose.yml
+**/npm-debug.log
+**/doc
+**/.git*
+**/coverage

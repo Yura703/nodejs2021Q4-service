@@ -1,10 +1,4 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -15,10 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRepository = void 0;
+exports.UserController = void 0;
 const typeorm_1 = require("typeorm");
-const user_1 = require("./user");
-let UserRepository = class UserRepository extends typeorm_1.Repository {
+const User_1 = require("./User");
+class UserController {
+    constructor() {
+        this.userRepository = (0, typeorm_1.getRepository)(User_1.User);
+        // /**
+        //  * Searching the Repository for an object with a given ID
+        //  * @param id - Object ID to search
+        //  * @returns index of the object with the given ID in the Repository array, or -1 if it is absent
+        //  */
+        //  async receiveId(id: string): number {
+        //   const index = this.arrayUser.findIndex((user) => user.id === id);
+        //   return index;
+        // }
+        // async updateName(id: number, fullname: string) {
+        //   return this.createQueryBuilder("people")
+        //     .update()
+        //     .set({ fullname: fullname })
+        //     .where("people.id = :id", { id })
+        //     .execute();
+        // }
+    }
     /**
     * Get object User by ID from Repository
     * @param id - user ID in uuid format
@@ -26,7 +39,7 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
     */
     findById(ID) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_1.User.findOne({ id: ID });
+            return yield this.userRepository.findOne({ id: ID });
         });
     }
     /**
@@ -35,17 +48,16 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
      */
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_1.User.find();
+            return yield this.userRepository.find();
         });
     }
     /**
     * Create new object User in Repository
     * @returns user object created in the Repository
     */
-    createUser(_user) {
+    createUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = _user;
-            return yield user.save();
+            return yield this.userRepository.save(user);
         });
     }
     /**
@@ -56,7 +68,7 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
      */
     editUser(id, user) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_1.User.update(id, user);
+            return yield User_1.User.update(id, user);
         });
     }
     /**
@@ -66,11 +78,12 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
      */
     deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_1.User.delete({ id: id });
+            const userToDelete = yield this.userRepository.findOne(id);
+            if (userToDelete) {
+                return yield this.userRepository.remove(userToDelete);
+            }
+            return new Error("id is bad");
         });
     }
-};
-UserRepository = __decorate([
-    (0, typeorm_1.EntityRepository)(user_1.User)
-], UserRepository);
-exports.UserRepository = UserRepository;
+}
+exports.UserController = UserController;

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.putBoardOpts = exports.postBoardOpts = void 0;
-var postBoardOpts = {
+const postBoardOpts = {
     schema: {
         body: {
             type: 'object',
@@ -39,7 +39,7 @@ var postBoardOpts = {
     },
 };
 exports.postBoardOpts = postBoardOpts;
-var putBoardOpts = {
+const putBoardOpts = {
     schema: {
         body: {
             type: 'object',

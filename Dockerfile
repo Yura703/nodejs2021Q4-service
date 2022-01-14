@@ -4,15 +4,15 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --production
+RUN npm install && npm cache clean --force
 
 COPY . .
 
 ARG PORT
 EXPOSE ${PORT}
 
-# RUN npx tsc
+RUN npx tsc
 
-# CMD [ "node", "./dist/server.js" ]
+CMD [ "node", "./dist/server.js" ]
 
-CMD [ "npm", "run", "start" ]
+# CMD [ "npm", "run", "start" ]
