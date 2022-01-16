@@ -1,6 +1,6 @@
 import { Board } from "./board.model";
-import RepositoryBoards from './board.memory.repository';
-import RepositoryTasks from '../tasks/task.memory.repository';
+import RepositoryBoards from './board.repository';
+import RepositoryTasks from '../tasks/task.repository';
 
 /**
  * Get object Board by ID from Repository

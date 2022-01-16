@@ -1,5 +1,5 @@
 import { Task, ITaskDto } from './task.model';
-import RepositoryBoard from '../boards/board.memory.repository';
+import RepositoryBoard from '../boards/board.repository';
 
 const ITEM_NOT_FOUND = -1;
 

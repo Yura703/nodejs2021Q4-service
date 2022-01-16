@@ -1,4 +1,4 @@
-import RepositoryTasks from './task.memory.repository';
+import RepositoryTasks from './task.repository';
 import { ITaskDto } from './task.model';
 
 /**

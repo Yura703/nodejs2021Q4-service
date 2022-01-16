@@ -1,65 +1,45 @@
-import { v4 as uuidv4 } from 'uuid';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
-interface ITask {
+export interface ITask {
   id: string;
   title: string;
   order: number;
   description: string;
   userId: string | null;
-  boardId: string;
+  boardId: string | null;
   columnId: string | null;
 }
 
-export interface ITaskDto { 
-  title: string;
-  order: number;
-  description: string;
-  userId: null | undefined;
-  boardId: string;
-  columnId: null | undefined;
+@Entity({ name: 'tasks' })
+export class Task extends BaseEntity{
+
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
+
+  @Column({ default: '' })
+  title!: string;
+
+  @Column({ default: 0 })
+  order!: number;
+
+  @Column({ default: '' })
+  description!: string;
+
+  @Column({ 
+    default: null, 
+    nullable: true 
+  })
+  userId!: string | null;
+
+  @Column({ 
+    default: null, 
+    nullable: true 
+  })
+  boardId!: string | null;
+
+  @Column({ 
+    default: null, 
+    nullable: true 
+  })
+  columnId!: string | null;
 }
-
-export class Task implements ITask {
-  /**
-   * Constructor forming an object of the Task class
-   * @param title - task name
-   * @param order - number order
-   * @param description - task description
-   * @param userId - user id
-   * @param boardId - board id
-   * @param columnId - column id
-   * @returns object of the Task class
-   */
-  constructor({
-    title = 'TASK',
-    order = 0,
-    description = '',
-    userId = null,
-    boardId= '',
-    columnId= null,
-  } = {}) {
-    this.id = uuidv4();
-    this.title = title;
-    this.order = order;
-    this.description = description;
-    this.userId = userId;
-    this.boardId = boardId;
-    this.columnId = columnId;
-  }
-
-  id: string;
-
-  title: string;
-
-  order: number;
-
-  description: string;
-
-  userId: string | null;
-
-  boardId: string;
-
-  columnId: string | null;
-}
-
-

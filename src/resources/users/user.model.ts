@@ -1,34 +1,38 @@
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Task } from '../tasks/task.model';
 
-interface IUser {
+export interface IUser {
   id: string;
   name: string;
   login: string;
   password: string;
 }
 
-export class User implements IUser {
-  /**
-   * Constructor forming an object of the User class
-   * @param name - the user name
-   * @param login - the user login
-   * @param password - the user password
-   * @returns object of the User class 
-   */
-  constructor({ name = 'USER', login = 'user', password = 'P@55w0rd' } = {}) {
-    this.id = uuidv4();
-    this.name = name;
-    this.login = login;
-    this.password = password;
-  }
+@Entity({ name: 'users' })
+export class User extends BaseEntity{
 
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-  name: string;
+  @Column('varchar', { 
+    default: 'USER' 
+  })
+  name!: string;
 
-  login: string;
+  @Column('varchar', { 
+    default: 'user' 
+  })
+  login!: string;
 
-  password: string;
+  @Column('varchar', { 
+    default: 'P@55w0rd', 
+    select: false 
+  })
+  password!: string;
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks!: string;
 }
 
 export type UserDto = Omit<IUser, 'password'>;
