@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
+import { Board } from '../boards/board.model';
+import { User } from '../users/user.model';
 
 export interface ITask {
   id: string;
@@ -42,4 +44,12 @@ export class Task extends BaseEntity{
     nullable: true 
   })
   columnId!: string | null;
+
+  @ManyToOne(() => Board, (board) => board.tasks, { onDelete: 'CASCADE' })
+  @JoinColumn({name: 'boardId'})
+  board!: string;
+
+  @ManyToOne(() => User, (user) => user.tasks, { onDelete: 'SET NULL' })
+  @JoinColumn({name: 'userId'})
+  user!: string;
 }
