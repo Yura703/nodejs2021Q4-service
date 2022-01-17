@@ -11,6 +11,7 @@ export class UserController {
   }
     
   async findAll() {
+    
     return await this.userRepository.find();
   }
 

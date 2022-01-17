@@ -1,6 +1,6 @@
 import { Task } from './task.model';
 import { getRepository } from "typeorm";
-import RepositoryBoard from '../boards/board.repository';
+//import RepositoryBoard from '../boards/board.repository';
 
 export class TaskController { 
   
@@ -22,41 +22,20 @@ export class TaskController {
 
   async editTask(boardID: string, taskID: string, task: Task) {
     
-    return await this.taskRepository.update(({ taskId: taskID, boardId: boardID, task }));
+    return await this.taskRepository.update(({ id: taskID, boardId: boardID, task }));
   }
 
-  async deleteTask(boardId: string, taskId: string) {
-    
+  async deleteTask(boardID: string, taskID: string) {
+
+    return await this.taskRepository.delete(({  boardId: boardID, id: taskID }));
   }
+  
 
-  async deleteTaskByBoardId(boardId: string) {
-    const tempArray = this.taskRepository.filter((task) => task.boardId !== boardId);
-    this.taskRepository = tempArray;
+  async deleteTaskByBoardId(boardID: string) {
 
-    return this.taskRepository.length - tempArray.length;
-  }
-
-  async updateTaskByUserId(userId: string): Promise< Task | true> {
-    const tempArray = await this.taskRepository.map((task) => {
-      const _task = task;
-      if (_task.userId === userId) {
-        _task.userId = null;
-      }
-      return _task;
-    });
-    this.taskRepository = tempArray;
-
-    return true;
-  }
-
-  async receiveTaskId(taskId: string) {
-    return this.taskRepository.findIndex((task) => task.id === taskId);
-  }
-
-  static receiveBoardId(boardId: string) {
-    const result = RepositoryBoard.findById(boardId);
-    return typeof result !== 'string';
+    return await this.taskRepository.delete(({  boardId: boardID}));
   }
 }
+  
 
-export = new RepositoryTask();
+  

@@ -1,43 +1,20 @@
 import { Board } from "./board.model";
-import RepositoryBoards from './board.repository';
-import RepositoryTasks from '../tasks/task.repository';
+import { BoardController } from './board.repository';
+//import RepositoryTasks from '../tasks/task.repository';
 
-/**
- * Get object Board by ID from Repository
-  * @param id - object Board ID in uuid format
-  * @returns objects Board by ID from Repository 
- */
-const findById = (id: string) => RepositoryBoards.findById(id);
+const boardController = new BoardController();
 
-/**
- *  Get all objects Board from Repository 
- *  @returns all objects Board from Repository 
- */
-const findAll = () => RepositoryBoards.findAll();
+const findById = (id: string) => boardController.findById(id);
 
-/**
-  * Create new object Board in Repository 
-  * @param board - the Board object received from the user
-  * @returns board object created in the Repository
- */
-const createBoard = (board: Board) => RepositoryBoards.createBoard(board);
+const findAll = () => boardController.findAll();
 
-/**
- * Modifying the Board object while keeping the original ID
-   * @param id - the id of the Board object to be modified
-   * @param board - Board object with new data
-   * @returns a Board object saved in the Repository after a change or an error message
- */
-const editBoard = (id: string, board: Board) => RepositoryBoards.editBoard(id, board);
+const createBoard = (board: Board) => boardController.createBoard(board);
 
-/**
-  * Removing a Board object by ID and tasks from the removed board from the Repository
-   * @param id - ID of the Board object to remove 
-   * @returns true on success, on error - an error message
- */
+const editBoard = (id: string, board: Board) => boardController.editBoard(id, board);
+
 const deleteBoard = (id: string) => {
-  RepositoryBoards.deleteBoard(id);
-  RepositoryTasks.deleteTaskByBoardId(id);
+  boardController.deleteBoard(id);
+  //RepositoryTasks.deleteTaskByBoardId(id);
 };
 
 export = { findById, findAll, createBoard, editBoard, deleteBoard };
