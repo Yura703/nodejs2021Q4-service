@@ -1,35 +1,49 @@
 import { Board } from './board.model';
 import { getRepository } from "typeorm";
 
-export class BoardController {
+const findById = async (id: string) => {
+  const repository = await getRepository(Board);
 
-  private boardRepository = getRepository(Board);
-
-  async findById(id: string) {
-
-    return await this.boardRepository.findOne({id: id});
-  }
-
-  async findAll() {
-    
-    return await this.boardRepository.find();
-  }
-
-  async createBoard(board: Board) {
-
-    return await this.boardRepository.save(board);
-  }
-
-  async editBoard(id: string, board: Board) {
-
-    return await Board.update(id, board);
-  }
-
-  async deleteBoard(id: string) {
-    const boardToDelete = await this.boardRepository.findOne(id);
-    if(boardToDelete) {
-      return await this.boardRepository.remove(boardToDelete);
-    }
-    return new Error("id is bad");
-  } 
+  return repository.findOne({id: id});
 }
+
+const findAll = async () => {
+  const repository = await getRepository(Board);
+
+  return repository.find();    
+}
+
+const createBoard = async (board: Omit<Board, 'id'>) => {
+  const repository = await getRepository(Board);
+
+  return await repository.save((board));
+}
+
+const editBoard = async (id: string, board: Board) => {
+  const repository = await getRepository(Board);
+  const editBoard = await repository.findOne({id: id});
+  if (!editBoard) {
+    return false;
+  }
+  const _board = { ...editBoard, ...board };
+  await repository.save(_board);
+  return _board;
+}
+
+const deleteBoard = async (id: string) => {
+  const repository = await getRepository(Board);
+  const delBoard = await repository.findOne({id: id});
+  if (!delBoard) {
+    return false;
+  }
+  await repository.remove(delBoard);
+  return true;
+} 
+
+export default { 
+findById,
+findAll,
+createBoard,
+editBoard,
+deleteBoard
+};

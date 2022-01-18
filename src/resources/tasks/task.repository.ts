@@ -2,46 +2,59 @@ import { Task } from './task.model';
 import { getRepository } from "typeorm";
 //import RepositoryBoard from '../boards/board.repository';
 
-export class TaskController { 
-  
-  private taskRepository = getRepository(Task);
+const findById = async (boardID: string, taskID: string) => {
+  const repository = await getRepository(Task);
 
-  async findById(boardID: string, taskID: string) {
-    
-    return await this.taskRepository.findOne({id: taskID, boardId:boardID});
-  }
-
-  async findAll(boardID: string) {  
-    return await this.taskRepository.find(({ boardId: boardID }));
-  }
-
-  async createTask(boardID: string, task: Task) {
-    
-    return await this.taskRepository.save(({ boardId: boardID, task }));
-  }    
-
-  async editTask(boardID: string, taskID: string, task: Task) {
-    await Task.createQueryBuilder()
-      .update(Task)
-      .set(task)
-      .where('boardId = :boardId', { boardID })
-      .andWhere('id = :taskId', { taskID })
-      .execute();
-
-    return this.findById(boardID, taskID)
-  }
-
-  async deleteTask(boardID: string, taskID: string) {
-
-    return await this.taskRepository.delete(({  boardId: boardID, id: taskID }));
-  }
-  
-
-  async deleteTaskByBoardId(boardID: string) {
-
-    return await this.taskRepository.delete(({  boardId: boardID}));
-  }
+  return repository.findOne({id: taskID, boardId:boardID});
 }
+
+const findAll = async (boardID: string) => {  
+  const repository = await getRepository(Task);
+
+  return repository.find(({ boardId: boardID }));
+}
+
+const createTask = async (boardID: string, task: Omit<Task, 'id'>) => {
+  const repository = await getRepository(Task);
   
+  return await repository.save(({ boardId: boardID, task }));
+}    
+
+const editTask = async (boardID: string, taskID: string, task: Task) => {
+  const repository = await getRepository(Task);
+  const editTask = await repository.findOne({ id: taskID, boardId:boardID });
+  if (!editTask) {
+    return false;
+  }
+  const _task = { ...editTask, ...task };
+  await repository.save(_task);
+  return _task;
+}
+
+const deleteTask = async (boardID: string, taskID: string) => {
+  const repository = await getRepository(Task);
+  const delTask = await repository.findOne({ id: taskID, boardId:boardID });
+  if (!delTask) {
+    return false;
+  }
+  await repository.remove(delTask);
+  return true;
+}
+
+
+const deleteTaskByBoardId = async (boardID: string) => {
+  const repository = await getRepository(Task);
+
+  return await repository.delete(({  boardId: boardID}));
+}
+
+export default {
+  findById,
+  findAll,
+  createTask,
+  editTask,
+  deleteTask,
+  deleteTaskByBoardId
+}; 
 
   

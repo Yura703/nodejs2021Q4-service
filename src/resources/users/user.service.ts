@@ -1,8 +1,8 @@
-import { UserController } from './user.repository';
+import  userController from './user.repository';
 //import RepositoryTasks from '../tasks/task.repository';
 import { User } from './user.model';
 
-const userController = new UserController();
+
 
 const findById = (id: string) => userController.findById(id);
 

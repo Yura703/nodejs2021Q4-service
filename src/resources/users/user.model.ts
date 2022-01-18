@@ -1,5 +1,5 @@
 //import { v4 as uuidv4 } from 'uuid';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Task } from '../tasks/task.model';
 
 export interface IUser {
@@ -10,7 +10,7 @@ export interface IUser {
 }
 
 @Entity({ name: 'users' })
-export class User extends BaseEntity{
+export class User {
 
   @PrimaryGeneratedColumn('uuid')
   id!: string;

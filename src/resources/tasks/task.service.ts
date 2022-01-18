@@ -1,7 +1,6 @@
-import { TaskController } from './task.repository';
+import taskController from './task.repository';
 import { Task } from './task.model';
 
-const taskController = new TaskController();
 
 const findById = (boardId: string, taskId: string) => taskController.findById(boardId, taskId);
 

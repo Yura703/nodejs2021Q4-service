@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Board } from '../boards/board.model';
 import { User } from '../users/user.model';
 
@@ -13,7 +13,7 @@ export interface ITask {
 }
 
 @Entity({ name: 'tasks' })
-export class Task extends BaseEntity{
+export class Task {
 
   @PrimaryGeneratedColumn('uuid')
   id!: string;

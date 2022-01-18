@@ -6,3 +6,25 @@
 {"level":30,"time":1642097232565,"pid":30,"hostname":"ff4a2d7ae2a8","msg":"Server listening at http://0.0.0.0:4000"}
 {"level":30,"time":1642098251526,"pid":30,"hostname":"ff4a2d7ae2a8","msg":"Server listening at http://0.0.0.0:4000"}
 {"level":30,"time":1642144785378,"pid":30,"hostname":"ff4a2d7ae2a8","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642536828119,"pid":63,"hostname":"101967b6747a","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642536856327,"pid":63,"hostname":"101967b6747a","reqId":"req-1","req":{"method":"GET","url":"/users","query":{"/users":null},"parameters":{},"body":null},"msg":"incoming request"}
+{"level":30,"time":1642536856436,"pid":63,"hostname":"101967b6747a","reqId":"req-1","res":{"statusCode":500},"responseTime":107.77950000017881,"msg":"request completed"}
+{"level":30,"time":1642536856477,"pid":63,"hostname":"101967b6747a","reqId":"req-2","req":{"method":"POST","url":"/users","query":{"/users":null},"parameters":{},"body":null},"msg":"incoming request"}
+{"level":30,"time":1642536856482,"pid":63,"hostname":"101967b6747a","reqId":"req-2","body":{"name":"TEST_USER","login":"test_user","password":"T35t_P@55w0rd"},"msg":"parsed body"}
+{"level":30,"time":1642536856504,"pid":63,"hostname":"101967b6747a","reqId":"req-2","res":{"statusCode":500},"responseTime":26.728200000710785,"msg":"request completed"}
+{"level":30,"time":1642536856514,"pid":63,"hostname":"101967b6747a","reqId":"req-3","req":{"method":"POST","url":"/users","query":{"/users":null},"parameters":{},"body":null},"msg":"incoming request"}
+{"level":30,"time":1642536856515,"pid":63,"hostname":"101967b6747a","reqId":"req-3","body":{"name":"TEST_USER","login":"test_user","password":"T35t_P@55w0rd"},"msg":"parsed body"}
+{"level":30,"time":1642536856518,"pid":63,"hostname":"101967b6747a","reqId":"req-3","res":{"statusCode":500},"responseTime":4.643199999816716,"msg":"request completed"}
+{"level":30,"time":1642536856526,"pid":63,"hostname":"101967b6747a","reqId":"req-4","req":{"method":"POST","url":"/users","query":{"/users":null},"parameters":{},"body":null},"msg":"incoming request"}
+{"level":30,"time":1642536856527,"pid":63,"hostname":"101967b6747a","reqId":"req-4","body":{"name":"TEST_USER","login":"test_user","password":"T35t_P@55w0rd"},"msg":"parsed body"}
+{"level":30,"time":1642536856532,"pid":63,"hostname":"101967b6747a","reqId":"req-4","res":{"statusCode":500},"responseTime":6.202100000344217,"msg":"request completed"}
+{"level":30,"time":1642536856539,"pid":63,"hostname":"101967b6747a","reqId":"req-5","req":{"method":"PUT","url":"/users/undefined","query":{"/users/undefined":null},"parameters":{"userId":"undefined"},"body":null},"msg":"incoming request"}
+{"level":30,"time":1642536856539,"pid":63,"hostname":"101967b6747a","reqId":"req-5","body":{"name":"Autotest updated TEST_USER","login":"test_user","password":"T35t_P@55w0rd"},"msg":"parsed body"}
+{"level":30,"time":1642536856546,"pid":63,"hostname":"101967b6747a","reqId":"req-5","res":{"statusCode":500},"responseTime":7.063299999572337,"msg":"request completed"}
+{"level":30,"time":1642536856554,"pid":63,"hostname":"101967b6747a","reqId":"req-6","req":{"method":"POST","url":"/users","query":{"/users":null},"parameters":{},"body":null},"msg":"incoming request"}
+{"level":30,"time":1642536856554,"pid":63,"hostname":"101967b6747a","reqId":"req-6","body":{"name":"TEST_USER","login":"test_user","password":"T35t_P@55w0rd"},"msg":"parsed body"}
+{"level":30,"time":1642536856558,"pid":63,"hostname":"101967b6747a","reqId":"req-6","res":{"statusCode":500},"responseTime":4.40570000000298,"msg":"request completed"}
+{"level":30,"time":1642536856565,"pid":63,"hostname":"101967b6747a","reqId":"req-7","req":{"method":"DELETE","url":"/users/undefined","query":{"/users/undefined":null},"parameters":{"userId":"undefined"},"body":null},"msg":"incoming request"}
+{"level":30,"time":1642536856567,"pid":63,"hostname":"101967b6747a","reqId":"req-7","res":{"statusCode":204},"responseTime":1.8145000003278255,"msg":"request completed"}
+{"level":30,"time":1642536943217,"pid":64,"hostname":"101967b6747a","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642537583914,"pid":64,"hostname":"868676e005fc","msg":"Server listening at http://0.0.0.0:4000"}

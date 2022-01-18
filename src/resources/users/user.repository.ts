@@ -1,35 +1,54 @@
 import { getRepository } from "typeorm";
 import { User } from "./user.model";
-
-export class UserController {
-
-  private userRepository = getRepository(User);
-  
-  async findById(ID: string) {
-
-    return await this.userRepository.findOne({id: ID});
-  }
     
-  async findAll() {
+const findById = async (ID: string) => {
+  const repository = await getRepository(User);
+
+  return repository.findOne(ID);
+}
     
-    return await this.userRepository.find();
+const findAll = async () => {
+  const repository = await getRepository(User);
+
+  return repository.find();
+}
+
+const createUser = async (user: Omit<User, 'id'>) => {
+  const repository = await getRepository(User);
+  //const _user = new User(user);
+
+  return await repository.save(user);
+}
+
+const editUser = async (id: string, user: User) => {
+  const repository = await getRepository(User);
+  const editUser = await repository.findOne(id);
+  if (!editUser) {
+
+    return false;
   }
+  const _user = {...editUser, ...user};
+  await repository.save(_user);
 
-  async createUser(user: User) {
+  return _user;
+}
 
-    return await this.userRepository.save(user);
+const deleteUser = async (id: string) => {
+  const repository = await getRepository(User);
+  const delUser = await repository.findOne(id);
+  if (!delUser) {
+
+    return false;
   }
+  await repository.remove(delUser);
 
-  async editUser(id: string, user: User) {
+  return true;  
+}
 
-    return await User.update(id, user);
-  }
-
-  async deleteUser(id: string) {
-    const userToDelete = await this.userRepository.findOne(id);
-    if(userToDelete) {
-      return await this.userRepository.remove(userToDelete);
-    }
-    return new Error("id is bad");
-  }
+export default {
+  findById,
+  findAll,
+  createUser,
+  editUser,
+  deleteUser
 }
