@@ -1,9 +1,8 @@
 import { ConnectionOptions } from 'typeorm';
 import { CONFIG } from './config';
-import { UserModel } from '../resources/user.model';
-import { BoardModel } from '../board.model';
-import { ColumnModel } from '../resources/boards/column.model';
-import { TaskModel } from '../resources/tasks/task.model';
+import { User } from '../resources/users/user.model';
+import { Board } from '../resources/boards/board.model';
+import { Task } from '../resources/tasks/task.model';
 
 const {
   POSTGRES_USER,
@@ -21,7 +20,7 @@ const connectionOptions: ConnectionOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   logging: false,
-  entities: [UserModel, BoardModel, ColumnModel, TaskModel],
+  entities: [User, Board, Task],
   synchronize: false,
   dropSchema: false,
   migrations: ['./src/migrations/**/*.ts'],

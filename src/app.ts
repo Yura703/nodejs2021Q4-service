@@ -4,6 +4,8 @@ import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import logger from './logger';
+import { createConnection } from 'typeorm';
+import connectionOptions from './ormconfig';
 
 const server =  fastify({ 
   logger 
@@ -42,6 +44,13 @@ server.register(boardRouter, {
 server.register(taskRouter, {
   prefix: '/boards/:boardId/tasks',
 });
+
+createConnection(connectionOptions)
+      .then(() => {
+          console.log('Connected DB');
+          
+      })
+      .catch(error => console.log(error));
 
 process.on('uncaughtException', (error) => {
     console.error(error.message);

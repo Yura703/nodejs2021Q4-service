@@ -1,11 +1,11 @@
-import  config  from './common/config';
+import  { CONFIG } from './common/config';
 import fastify from './app';
 //import connect from './appDb';
 import "reflect-metadata";
-import { createConnection } from "typeorm";
-import connectionOptions from "./ormconfig";
+// import { createConnection } from "typeorm";
+// import connectionOptions from "./ormconfig";
 
-const PORT =  config.PORT ?? 4000;
+const PORT =  CONFIG.PORT ?? 4000;
 
 /**
  * Start Server or will be error.
@@ -19,12 +19,12 @@ const start = async () => {
       
     });
 
-    await createConnection(connectionOptions)
-      .then(() => {
-          console.log('Connected DB');
+    // await createConnection(connectionOptions)
+    //   .then(() => {
+    //       console.log('Connected DB');
           
-      })
-      .catch(error => console.log(error));
+    //   })
+    //   .catch(error => console.log(error));
 
   } catch (error) {
     fastify.log.error(error);

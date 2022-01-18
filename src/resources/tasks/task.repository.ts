@@ -21,8 +21,14 @@ export class TaskController {
   }    
 
   async editTask(boardID: string, taskID: string, task: Task) {
-    
-    return await this.taskRepository.update(({ id: taskID, boardId: boardID, task }));
+    await Task.createQueryBuilder()
+      .update(Task)
+      .set(task)
+      .where('boardId = :boardId', { boardID })
+      .andWhere('id = :taskId', { taskID })
+      .execute();
+
+    return this.findById(boardID, taskID)
   }
 
   async deleteTask(boardID: string, taskID: string) {

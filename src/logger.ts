@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import queryString from 'query-string';
 import { pino, LoggerOptions } from 'pino';
 import path from 'path';
-import  config  from './common/config';
+import  { CONFIG }  from './common/config';
 
  
 const pinoLogger: LoggerOptions = {
@@ -26,7 +26,7 @@ const pinoLogger: LoggerOptions = {
   transport: {
     targets: [
       {
-        level: config.LEVEL_LOG,
+        level: CONFIG.LEVEL_LOG,
         target: 'pino/file',
         options: {
           destination: path.resolve(__dirname,'../logs/log.log'),

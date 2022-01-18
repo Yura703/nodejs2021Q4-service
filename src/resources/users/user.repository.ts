@@ -32,13 +32,4 @@ export class UserController {
     }
     return new Error("id is bad");
   }
-
-  
-
-
-
-
-  
-
-
-
+}

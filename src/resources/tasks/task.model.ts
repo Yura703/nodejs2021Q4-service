@@ -43,7 +43,7 @@ export class Task extends BaseEntity{
     default: null, 
     nullable: true 
   })
-  columnId!: string | null;
+  columnId!: string;
 
   @ManyToOne(() => Board, (board) => board.tasks, { onDelete: 'CASCADE' })
   @JoinColumn({name: 'boardId'})
