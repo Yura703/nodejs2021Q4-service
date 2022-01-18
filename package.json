@@ -11,15 +11,16 @@
   "scripts": {
     "start1": "nodemon --exitcrash -L src/server.ts",
     "start2": "nodemon src/server.ts",
-    "start11": "npm run migration:generate && npm run migration:run && nodemon",
+    "start3": "npm run migration:generate && npm run migration:run && nodemon",
+
     "migration:generate": "npm run typeorm migration:generate -- -n MigrationFile",
     "migration:run": "npm run typeorm -- migration:run",
-
+    
     "migration": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:run",
     "dev": "nodemon ./src/server.ts",
     "start": "npm run migration && npm run dev",
-
     "build": "tsc",
+
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"

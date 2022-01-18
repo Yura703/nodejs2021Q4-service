@@ -10,6 +10,7 @@ dotenv.config({
 });
 
 const connectionOptions: ConnectionOptions = {
+  //name: 'postg',
   type: 'postgres',
   host: 'postgres',
   port: process.env.POSTGRES_PORT ? +process.env.POSTGRES_PORT : 5432,
@@ -19,9 +20,8 @@ const connectionOptions: ConnectionOptions = {
   logging: false,
   entities: [User, Board, Task],
   synchronize: false,
-  dropSchema: false,
-  migrations: ['./src/migrations/**/*.ts'],
-  migrationsRun: false,
+  migrations: ['src/migrations/*.ts'],
+  migrationsRun: true,
   cli: {
     migrationsDir: 'src/migrations'
   }

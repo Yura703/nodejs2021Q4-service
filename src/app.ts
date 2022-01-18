@@ -6,10 +6,24 @@ import taskRouter from './resources/tasks/task.router';
 import logger from './logger';
 import { createConnection } from 'typeorm';
 import connectionOptions from './ormconfig';
+import "reflect-metadata";
 
 const server =  fastify({ 
   logger 
 });
+
+(async () => { await createConnection(connectionOptions)
+      .then(() => {
+          console.log('Connected DB');          
+      })
+      .catch(error => console.log(error));
+
+process.on('uncaughtException', (error) => {
+    console.error(error.message);
+    throw new Error("Ops");
+    // process.exit(1);
+  });
+})();
   
 server.addHook('preHandler', (req, _reply, done) => {
   if (req.body) {
@@ -45,18 +59,7 @@ server.register(taskRouter, {
   prefix: '/boards/:boardId/tasks',
 });
 
-createConnection(connectionOptions)
-      .then(() => {
-          console.log('Connected DB');
-          
-      })
-      .catch(error => console.log(error));
 
-process.on('uncaughtException', (error) => {
-    console.error(error.message);
-    throw new Error("Ops");
-    // process.exit(1);
-  });
 
    // throw Error('Oops!')
 
