@@ -15,6 +15,9 @@ const boardRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   fastify.get<{ Params: {boardId: string} }>('/:boardId', async (req, reply) => {
     const { boardId } = req.params;
     const board = await boardsService.findById(boardId);
+    if (!board) {
+      reply.status(404);
+    }
     
     reply.send(board);
   });

@@ -8,19 +8,15 @@
   "type": "commonjs",
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
-  "scripts": {
-    "start1": "nodemon --exitcrash -L src/server.ts",
-    "start2": "nodemon src/server.ts",
-    "start3": "npm run migration:generate && npm run migration:run && nodemon",
-
+  "scripts": {    
     "migration:generate": "npm run typeorm migration:generate -- -n MigrationFile",
     "migration:run": "npm run typeorm -- migration:run",
-    
+    "generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n migrationFile -p",
     "migration": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:run",
     "dev": "nodemon ./src/server.ts",
     "start": "npm run migration && npm run dev",
     "build": "tsc",
-
+    "start:gener": "npm run generate && migration && npm run dev",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"

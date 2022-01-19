@@ -27,29 +27,26 @@ export class Task {
   @Column({ default: '' })
   description!: string;
 
-  @Column({ 
-    default: null, 
-    nullable: true 
-  })
-  userId!: string | null;
+  // @Column({ 
+  //   default: null, 
+  //   nullable: true 
+  // })
+  // userId?: string | null;
 
-  @Column({ 
-    default: null, 
-    nullable: true 
-  })
-  boardId!: string | null;
+  // @Column({ 
+  //   default: null, 
+  //   nullable: true 
+  // })
+  // boardId?: string | null;
 
-  @Column({ 
-    default: null, 
-    nullable: true 
-  })
-  columnId!: string;
+  @Column('varchar', { nullable: true })
+  columnId?: string | null;
 
-  @ManyToOne(() => Board, (board) => board.tasks, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Board, (board) => board.id, {  nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({name: 'boardId'})
-  board!: string;
+  boardId?: string| null = null;
 
-  @ManyToOne(() => User, (user) => user.tasks, { onDelete: 'SET NULL' })
+  @ManyToOne(() => User, (user) => user.id, {  nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({name: 'userId'})
-  user!: string;
+  userId?: string | null = null;
 }

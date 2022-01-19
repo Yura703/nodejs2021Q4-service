@@ -3,8 +3,11 @@ import { getRepository } from "typeorm";
 
 const findById = async (id: string) => {
   const repository = await getRepository(Board);
-
-  return repository.findOne({id: id});
+  const board = repository.findOne({id: id});
+  if (!board) {
+    return false;
+  }
+  return board;
 }
 
 const findAll = async () => {

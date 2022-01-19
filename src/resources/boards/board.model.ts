@@ -1,15 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Task } from '../tasks/task.model';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+//import { Task } from '../tasks/task.model';
 
 export interface IColumn {
-  id?: string;
+  id: string;
   title: string;
   order: number;
 }
 export interface IBoard {
-  id?: string;
+  id: string;
   title: string;
-  columns?: IColumn[] | [];
+  columns: IColumn[];
 }
 
 @Entity({ name: 'boards' })
@@ -24,8 +24,8 @@ export class Board {
   @Column('json')
   columns: IColumn[] = [];
 
-  @OneToMany(() => Task, (task) => task.board)
-  tasks!: Task[];
+  // @OneToMany(() => Task, (task) => task.id)
+  // tasks!: Task[];
 }
 
 

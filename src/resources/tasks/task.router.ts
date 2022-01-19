@@ -28,9 +28,12 @@ const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   fastify.post<{ Params: {boardId: string}, Body: Task }>('/', postTaskOpts, async (req, reply) => {
     const taskReq = req.body;
     const { boardId } = req.params;
-    const task = tasksService.createTask(boardId, taskReq);
-
+    const task = await tasksService.createTask(boardId, taskReq);
     reply.status(201);
+    if (!task) {
+      reply.status(402);   
+    }
+    
     reply.send(task);
   });
 

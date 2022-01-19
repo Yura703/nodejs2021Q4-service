@@ -16,8 +16,10 @@ const findAll = async (boardID: string) => {
 
 const createTask = async (boardID: string, task: Omit<Task, 'id'>) => {
   const repository = await getRepository(Task);
-  
-  return await repository.save(({ boardId: boardID, task }));
+  const newTask = await repository.create({...task, boardId: boardID});  
+  await repository.save(newTask);
+
+  return newTask;
 }    
 
 const editTask = async (boardID: string, taskID: string, task: Task) => {

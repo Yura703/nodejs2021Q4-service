@@ -1,6 +1,6 @@
 //import { v4 as uuidv4 } from 'uuid';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Task } from '../tasks/task.model';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+//import { Task } from '../tasks/task.model';
 
 export interface IUser {
   id: string;
@@ -31,8 +31,8 @@ export class User {
   })
   password!: string;
 
-  @OneToMany(() => Task, (task) => task.user)
-  tasks!: string;
+  // @OneToMany(() => Task, (task) => task.id)
+  // tasks!: string;
 }
 
 export type UserDto = Omit<IUser, 'password'>;
