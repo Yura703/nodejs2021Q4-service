@@ -21,10 +21,10 @@ const connectionOptions: ConnectionOptions = {
   entities: [User, Board, Task],
   synchronize: false,
   migrations: ['src/migrations/*.ts'],
-  migrationsRun: true,
-  cli: {
-    migrationsDir: 'src/migrations'
-  }
+  // migrationsRun: true,
+  // cli: {
+  //   migrationsDir: 'src/migrations'
+  // }
 }
 
 export default connectionOptions;
