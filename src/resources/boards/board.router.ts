@@ -40,9 +40,12 @@ const boardRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   
   fastify.delete<{ Params: {boardId: string} }>('/:boardId', async (req, reply) => {
     const { boardId } = req.params;
-    await boardsService.deleteBoard(boardId);
-    
+    const deleteBoard = await boardsService.deleteBoard(boardId);
     reply.status(204);
+    if (!deleteBoard) {
+      reply.status(404);
+    }
+    
     reply.send();
   });
 }

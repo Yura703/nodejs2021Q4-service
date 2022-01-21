@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Task } from '../tasks/task.model';
 //import { Task } from '../tasks/task.model';
 
 export interface IColumn {
@@ -16,16 +17,16 @@ export interface IBoard {
 export class Board {
 
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id: string;
 
   @Column('varchar')
-  title!: string;
+  title: string;
 
   @Column('json')
   columns: IColumn[] = [];
 
-  // @OneToMany(() => Task, (task) => task.id)
-  // tasks!: Task[];
+  @OneToMany(() => Task, (task) => task.board)
+  tasks!: Task[];
 }
 
 

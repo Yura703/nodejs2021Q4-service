@@ -10,9 +10,8 @@ const createBoard = (board: Board) => boardController.createBoard(board);
 
 const editBoard = (id: string, board: Board) => boardController.editBoard(id, board);
 
-const deleteBoard = (id: string) => {
-  boardController.deleteBoard(id);
-  //RepositoryTasks.deleteTaskByBoardId(id);
-};
+const deleteBoard = (id: string) =>  boardController.deleteBoard(id);
+  
+
 
 export = { findById, findAll, createBoard, editBoard, deleteBoard };

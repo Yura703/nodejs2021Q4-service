@@ -14,15 +14,13 @@ const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
 
   fastify.get<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {
     const { boardId, taskId } = req.params;
-
     const task = tasksService.findById(boardId, taskId);
-
-    if (typeof task === 'string') {
+    reply.status(200);
+    if (!task) {
       reply.status(404);
-      reply.send(task);
     }
 
-    reply.send(task);
+    return task;
   });
 
   fastify.post<{ Params: {boardId: string}, Body: Task }>('/', postTaskOpts, async (req, reply) => {
@@ -34,15 +32,19 @@ const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
       reply.status(402);   
     }
     
-    reply.send(task);
+    return task;
   });
 
   fastify.put<{ Params: {boardId: string, taskId: string}, Body: Task }>('/:taskId', postTaskOpts, async (req, reply) => {
     const { boardId, taskId } = req.params;
     const taskReq = req.body;
-    const task = tasksService.editTask(boardId, taskId, taskReq);
-
-    reply.send(task);
+    const task = await tasksService.editTask(boardId, taskId, taskReq);
+    reply.status(200);
+    if (!task) {
+      reply.status(404);   
+    }
+    
+    return task;
   });
 
    fastify.delete<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {

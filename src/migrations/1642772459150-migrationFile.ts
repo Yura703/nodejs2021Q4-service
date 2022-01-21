@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class migrationFile1642618904577 implements MigrationInterface {
-    name = 'migrationFile1642618904577'
+export class migrationFile1642772459150 implements MigrationInterface {
+    name = 'migrationFile1642772459150'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -14,14 +14,6 @@ export class migrationFile1642618904577 implements MigrationInterface {
             )
         `);
         await queryRunner.query(`
-            CREATE TABLE "boards" (
-                "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-                "title" character varying NOT NULL,
-                "columns" json NOT NULL,
-                CONSTRAINT "PK_606923b0b068ef262dfdcd18f44" PRIMARY KEY ("id")
-            )
-        `);
-        await queryRunner.query(`
             CREATE TABLE "tasks" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                 "title" character varying NOT NULL DEFAULT '',
@@ -31,6 +23,14 @@ export class migrationFile1642618904577 implements MigrationInterface {
                 "boardId" uuid,
                 "userId" uuid,
                 CONSTRAINT "PK_8d12ff38fcc62aaba2cab748772" PRIMARY KEY ("id")
+            )
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "boards" (
+                "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+                "title" character varying NOT NULL,
+                "columns" json NOT NULL,
+                CONSTRAINT "PK_606923b0b068ef262dfdcd18f44" PRIMARY KEY ("id")
             )
         `);
         await queryRunner.query(`
@@ -52,10 +52,10 @@ export class migrationFile1642618904577 implements MigrationInterface {
             ALTER TABLE "tasks" DROP CONSTRAINT "FK_8a75fdea98c72c539a0879cb0d1"
         `);
         await queryRunner.query(`
-            DROP TABLE "tasks"
+            DROP TABLE "boards"
         `);
         await queryRunner.query(`
-            DROP TABLE "boards"
+            DROP TABLE "tasks"
         `);
         await queryRunner.query(`
             DROP TABLE "users"

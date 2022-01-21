@@ -4,8 +4,12 @@ import { getRepository } from "typeorm";
 
 const findById = async (boardID: string, taskID: string) => {
   const repository = await getRepository(Task);
+  const task = repository.findOne({where: {id: taskID, boardId:boardID}});
+  if(!task) {
 
-  return repository.findOne({id: taskID, boardId:boardID});
+    return false;
+  }
+  return task;
 }
 
 const findAll = async (boardID: string) => {  
@@ -29,8 +33,8 @@ const editTask = async (boardID: string, taskID: string, task: Task) => {
     return false;
   }
   const _task = { ...editTask, ...task };
-  await repository.save(_task);
-  return _task;
+  
+  return await repository.save(_task);
 }
 
 const deleteTask = async (boardID: string, taskID: string) => {
@@ -46,6 +50,8 @@ const deleteTask = async (boardID: string, taskID: string) => {
 
 const deleteTaskByBoardId = async (boardID: string) => {
   const repository = await getRepository(Task);
+
+
 
   return await repository.delete(({  boardId: boardID}));
 }

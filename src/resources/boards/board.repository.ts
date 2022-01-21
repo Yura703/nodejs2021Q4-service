@@ -18,8 +18,9 @@ const findAll = async () => {
 
 const createBoard = async (board: Omit<Board, 'id'>) => {
   const repository = await getRepository(Board);
-
-  return await repository.save((board));
+  const newBoard = repository.create({...board});
+  await repository.save(newBoard);
+  return newBoard;
 }
 
 const editBoard = async (id: string, board: Board) => {
