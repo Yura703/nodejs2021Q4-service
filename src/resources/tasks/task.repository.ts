@@ -1,10 +1,9 @@
 import { Task } from './task.model';
 import { getRepository } from "typeorm";
-//import RepositoryBoard from '../boards/board.repository';
 
 const findById = async (boardID: string, taskID: string) => {
   const repository = await getRepository(Task);
-  const task = repository.findOne({where: {id: taskID, boardId:boardID}});
+  const task = await repository.findOne({where: {id: taskID, boardId:boardID}});
   if(!task) {
 
     return false;
@@ -20,7 +19,7 @@ const findAll = async (boardID: string) => {
 
 const createTask = async (boardID: string, task: Omit<Task, 'id'>) => {
   const repository = await getRepository(Task);
-  const newTask = await repository.create({...task, boardId: boardID});  
+  const newTask = repository.create({...task, boardId: boardID});  
   await repository.save(newTask);
 
   return newTask;
@@ -33,27 +32,20 @@ const editTask = async (boardID: string, taskID: string, task: Task) => {
     return false;
   }
   const _task = { ...editTask, ...task };
-  
-  return await repository.save(_task);
+  const newTask = await repository.save(_task);
+  return newTask;
 }
 
 const deleteTask = async (boardID: string, taskID: string) => {
   const repository = await getRepository(Task);
-  const delTask = await repository.findOne({ id: taskID, boardId:boardID });
-  if (!delTask) {
-    return false;
-  }
-  await repository.remove(delTask);
-  return true;
-}
+ 
+    const delTask = await repository.findOne({ id: taskID, boardId:boardID });    
+    if (!delTask) {
+      return false;
+    }
+    await repository.remove(delTask);
 
-
-const deleteTaskByBoardId = async (boardID: string) => {
-  const repository = await getRepository(Task);
-
-
-
-  return await repository.delete(({  boardId: boardID}));
+    return true;  
 }
 
 export default {
@@ -62,7 +54,6 @@ export default {
   createTask,
   editTask,
   deleteTask,
-  deleteTaskByBoardId
 }; 
 
   

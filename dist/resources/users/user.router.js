@@ -15,9 +15,14 @@ const user_service_1 = __importDefault(require("./user.service"));
 const user_schema_1 = require("./user.schema");
 const userRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
     fastify.get('/', user_schema_1.getAllUsersOpts, () => __awaiter(void 0, void 0, void 0, function* () { return user_service_1.default.findAll(); }));
-    fastify.get('/:userId', user_schema_1.getUsersOpts, (req) => __awaiter(void 0, void 0, void 0, function* () {
+    fastify.get('/:userId', user_schema_1.getUsersOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { userId } = req.params;
-        return user_service_1.default.findById(userId);
+        const user = user_service_1.default.findById(userId);
+        reply.status(200);
+        if (!user) {
+            reply.status(404);
+        }
+        return user;
     }));
     fastify.post('/', user_schema_1.postUsersOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const userReq = req.body;
@@ -31,12 +36,11 @@ const userRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
     }));
     fastify.delete('/:userId', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { userId } = req.params;
-        const result = yield user_service_1.default.deleteUser(userId);
-        if (typeof result === 'string') {
-            reply.status(404);
-            reply.send(result);
-        }
+        const userDel = yield user_service_1.default.deleteUser(userId);
         reply.status(204);
+        if (!userDel) {
+            reply.status(404);
+        }
         reply.send();
     }));
 });

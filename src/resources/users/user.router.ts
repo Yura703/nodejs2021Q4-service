@@ -7,10 +7,14 @@ const userRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   
   fastify.get('/', getAllUsersOpts, async () => usersService.findAll());
   
-  fastify.get<{ Params: {userId: string} }>('/:userId', getUsersOpts, async (req) => {
+  fastify.get<{ Params: {userId: string} }>('/:userId', getUsersOpts, async (req, reply) => {
     const { userId } = req.params;
-
-    return usersService.findById(userId);    
+    const user = usersService.findById(userId); 
+    reply.status(200);
+    if (!user) {
+      reply.status(404);
+    }
+    return  user;  
   });
 
   fastify.post<{ Body: User }>('/', postUsersOpts, async (req, reply) => {
@@ -29,12 +33,13 @@ const userRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
 
   fastify.delete<{ Params: {userId: string} }>('/:userId', async (req, reply) => {
     const { userId } = req.params;
-    const result = await usersService.deleteUser(userId);
-    if (typeof result === 'string') {
-      reply.status(404);
-      reply.send(result);
-    }
+    const userDel = await usersService.deleteUser(userId);
+    
     reply.status(204);
+    if (!userDel) {
+      reply.status(404);
+    }  
+
     reply.send();
   });
 }

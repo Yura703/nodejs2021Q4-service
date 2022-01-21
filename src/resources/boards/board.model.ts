@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Task } from '../tasks/task.model';
-//import { Task } from '../tasks/task.model';
 
 export interface IColumn {
   id: string;

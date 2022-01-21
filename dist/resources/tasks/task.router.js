@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const task_service_1 = __importDefault(require("./task.service"));
 const task_schema_1 = require("./task.schema");
-//import { ITaskDto } from "./task.model";
 const taskRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
     fastify.get('/', (req) => __awaiter(void 0, void 0, void 0, function* () {
         const { boardId } = req.params;
@@ -21,34 +20,40 @@ const taskRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
     }));
     fastify.get('/:taskId', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { boardId, taskId } = req.params;
-        const task = task_service_1.default.findById(boardId, taskId);
-        if (typeof task === 'string') {
+        const task = yield task_service_1.default.findById(boardId, taskId);
+        reply.status(200);
+        if (!task) {
             reply.status(404);
-            reply.send(task);
         }
-        reply.send(task);
+        return task;
     }));
     fastify.post('/', task_schema_1.postTaskOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const taskReq = req.body;
         const { boardId } = req.params;
-        const task = task_service_1.default.createTask(boardId, taskReq);
+        const task = yield task_service_1.default.createTask(boardId, taskReq);
         reply.status(201);
-        reply.send(task);
+        if (!task) {
+            reply.status(402);
+        }
+        return task;
     }));
     fastify.put('/:taskId', task_schema_1.postTaskOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { boardId, taskId } = req.params;
         const taskReq = req.body;
-        const task = task_service_1.default.editTask(boardId, taskId, taskReq);
-        reply.send(task);
+        const task = yield task_service_1.default.editTask(boardId, taskId, taskReq);
+        reply.status(200);
+        if (!task) {
+            reply.status(404);
+        }
+        return task;
     }));
     fastify.delete('/:taskId', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { boardId, taskId } = req.params;
-        const result = yield task_service_1.default.deleteTask(boardId, taskId);
-        if (typeof result === 'string') {
-            reply.status(404);
-            reply.send(result);
-        }
+        const delTask = yield task_service_1.default.deleteTask(boardId, taskId);
         reply.status(204);
+        if (!delTask) {
+            reply.status(404);
+        }
         reply.send();
     }));
 });

@@ -25,7 +25,9 @@ const findAll = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const createBoard = (board) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(board_model_1.Board);
-    return yield repository.save((board));
+    const newBoard = repository.create(Object.assign({}, board));
+    yield repository.save(newBoard);
+    return newBoard;
 });
 const editBoard = (id, board) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(board_model_1.Board);

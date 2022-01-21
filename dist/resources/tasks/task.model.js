@@ -32,36 +32,25 @@ __decorate([
     __metadata("design:type", String)
 ], Task.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)({
-        default: null,
-        nullable: true
-    }),
+    (0, typeorm_1.Column)('uuid', { nullable: true }),
     __metadata("design:type", Object)
 ], Task.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({
-        default: null,
-        nullable: true
-    }),
+    (0, typeorm_1.ManyToOne)(() => user_model_1.User, { onDelete: 'SET NULL' }),
     __metadata("design:type", Object)
+], Task.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.Column)('uuid'),
+    __metadata("design:type", String)
 ], Task.prototype, "boardId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({
-        default: null,
-        nullable: true
-    }),
-    __metadata("design:type", Object)
-], Task.prototype, "columnId", void 0);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => board_model_1.Board, (board) => board.tasks, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinColumn)({ name: 'boardId' }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Task.prototype, "board", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_model_1.User, (user) => user.tasks, { onDelete: 'SET NULL' }),
-    (0, typeorm_1.JoinColumn)({ name: 'userId' }),
-    __metadata("design:type", String)
-], Task.prototype, "user", void 0);
+    (0, typeorm_1.Column)('varchar', { nullable: true }),
+    __metadata("design:type", Object)
+], Task.prototype, "columnId", void 0);
 Task = __decorate([
     (0, typeorm_1.Entity)({ name: 'tasks' })
 ], Task);

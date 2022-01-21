@@ -21,7 +21,6 @@ const findAll = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(user_model_1.User);
-    //const _user = new User(user);
     return yield repository.save(user);
 });
 const editUser = (id, user) => __awaiter(void 0, void 0, void 0, function* () {

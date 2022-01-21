@@ -11,10 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const task_model_1 = require("./task.model");
 const typeorm_1 = require("typeorm");
-//import RepositoryBoard from '../boards/board.repository';
 const findById = (boardID, taskID) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(task_model_1.Task);
-    return repository.findOne({ id: taskID, boardId: boardID });
+    const task = yield repository.findOne({ where: { id: taskID, boardId: boardID } });
+    if (!task) {
+        return false;
+    }
+    return task;
 });
 const findAll = (boardID) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(task_model_1.Task);
@@ -22,7 +25,7 @@ const findAll = (boardID) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const createTask = (boardID, task) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(task_model_1.Task);
-    const newTask = yield repository.create(Object.assign(Object.assign({}, task), { boardId: boardID }));
+    const newTask = repository.create(Object.assign(Object.assign({}, task), { boardId: boardID }));
     yield repository.save(newTask);
     return newTask;
 });
@@ -33,8 +36,8 @@ const editTask = (boardID, taskID, task) => __awaiter(void 0, void 0, void 0, fu
         return false;
     }
     const _task = Object.assign(Object.assign({}, editTask), task);
-    yield repository.save(_task);
-    return _task;
+    const newTask = yield repository.save(_task);
+    return newTask;
 });
 const deleteTask = (boardID, taskID) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(task_model_1.Task);
@@ -45,15 +48,10 @@ const deleteTask = (boardID, taskID) => __awaiter(void 0, void 0, void 0, functi
     yield repository.remove(delTask);
     return true;
 });
-const deleteTaskByBoardId = (boardID) => __awaiter(void 0, void 0, void 0, function* () {
-    const repository = yield (0, typeorm_1.getRepository)(task_model_1.Task);
-    return yield repository.delete(({ boardId: boardID }));
-});
 exports.default = {
     findById,
     findAll,
     createTask,
     editTask,
     deleteTask,
-    deleteTaskByBoardId
 };

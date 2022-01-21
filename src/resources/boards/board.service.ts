@@ -1,6 +1,5 @@
 import { Board } from "./board.model";
 import boardController from './board.repository';
-//import RepositoryTasks from '../tasks/task.repository';
 
 const findById = (id: string) => boardController.findById(id);
 

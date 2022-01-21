@@ -14,13 +14,10 @@ taskController.editTask(boardId, taskId, task);
 const deleteTask = (boardId: string, taskId: string) =>
 taskController.deleteTask(boardId, taskId);
  
-const deleteTaskByBoardId = (id: string) => taskController.deleteTaskByBoardId(id);
-
 export = {
   findById,
   findAll,
   createTask,
   editTask,
   deleteTask,
-  deleteTaskByBoardId,
 };

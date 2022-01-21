@@ -15,7 +15,6 @@ const findAll = async () => {
 
 const createUser = async (user: Omit<User, 'id'>) => {
   const repository = await getRepository(User);
-  //const _user = new User(user);
 
   return await repository.save(user);
 }

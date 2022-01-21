@@ -10,9 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
-//import { v4 as uuidv4 } from 'uuid';
 const typeorm_1 = require("typeorm");
-const task_model_1 = require("../tasks/task.model");
 let User = class User {
 };
 __decorate([
@@ -38,10 +36,6 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => task_model_1.Task, (task) => task.user),
-    __metadata("design:type", String)
-], User.prototype, "tasks", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)({ name: 'users' })
 ], User);

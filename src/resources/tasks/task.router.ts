@@ -2,19 +2,19 @@ import { FastifyPluginAsync } from "fastify"
 import tasksService from './task.service';
 import { postTaskOpts } from './task.schema';
 import { Task } from "./task.model";
-//import { ITaskDto } from "./task.model";
 
 const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
   
   fastify.get<{ Params: {boardId: string} }>('/', async (req) => {
     const { boardId } = req.params;
-    
+
     return tasksService.findAll(boardId);
   });
 
   fastify.get<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {
     const { boardId, taskId } = req.params;
-    const task = tasksService.findById(boardId, taskId);
+    const task = await tasksService.findById(boardId, taskId);
+    
     reply.status(200);
     if (!task) {
       reply.status(404);
@@ -47,18 +47,17 @@ const taskRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {
     return task;
   });
 
-   fastify.delete<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {
+  fastify.delete<{ Params: {boardId: string, taskId: string} }>('/:taskId', async (req, reply) => {
     const { boardId, taskId } = req.params;
-    const result = await tasksService.deleteTask(boardId, taskId);
-
-    if (typeof result === 'string') {
-      reply.status(404);
-      reply.send(result);
-    }
-
+    const delTask = await tasksService.deleteTask(boardId, taskId);   
     reply.status(204);
+    if (!delTask) {
+      reply.status(404);
+    }    
+   
     reply.send();
   });
+
 }
 
 export = taskRoutes;

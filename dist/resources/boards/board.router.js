@@ -41,8 +41,11 @@ const boardRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () 
     }));
     fastify.delete('/:boardId', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const { boardId } = req.params;
-        yield board_service_1.default.deleteBoard(boardId);
+        const deleteBoard = yield board_service_1.default.deleteBoard(boardId);
         reply.status(204);
+        if (!deleteBoard) {
+            reply.status(404);
+        }
         reply.send();
     }));
 });

@@ -27,44 +27,19 @@ export class Task {
   @Column({ default: '' })
   description: string;
 
-  // @Column({ 
-  //   default: null, 
-  //   nullable: true 
-  // })
-  // userId?: string | null;
-
-  // @Column({ 
-  //   default: null, 
-  //   nullable: true 
-  // })
-  // boardId?: string | null;
   
-  
-  
-
-  @Column('varchar', { nullable: true })
-  columnId: string | null;
-
-  @Column('uuid', { nullable: true })
-  boardId: string | null;
-
-  @ManyToOne(() => Board, {
-    onDelete: 'CASCADE',
-  })
-  board: Board | undefined;
-
-  // @ManyToOne(() => Board, (board) => board.id, {  nullable: true, onDelete: 'CASCADE' })
-  // @JoinColumn({name: 'boardId'})
-  // boardId?: string| null = null;
-
-  // @ManyToOne(() => User, (user) => user.id, {  nullable: true, onDelete: 'SET NULL' })
-  // @JoinColumn({name: 'userId'})
-  // userId?: string | null = null;
-
   @Column('uuid', { nullable: true })
   userId: string | null;
-
   @ManyToOne(() => User, { onDelete: 'SET NULL' })
-  user: User | undefined;
+  user?: User | undefined;
+
   
+  @Column('uuid')
+  boardId!: string;
+  @ManyToOne(() => Board, (board) => board.tasks, { onDelete: 'CASCADE' })
+  board!: Board | undefined;  
+
+
+  @Column('varchar', { nullable: true })
+  columnId: string | null;  
 }
