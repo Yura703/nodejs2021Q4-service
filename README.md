@@ -1,6 +1,6 @@
 ### [Yuri Lapitski](lyurik@tut.by)
 # RS School REST service
-# Docker basics
+# PostgreSQL-TypeORM
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ git clone {repository URL}
 ## Switch to task
 
 ```
-git checkout Docker-basics
+git checkout PostgreSQL-Typeorm
 ```
 ## Installing NPM modules
 
@@ -30,39 +30,6 @@ npm install
 docker-compose up
 ```
 
-## Docker
-To start the aplication and postgres use the command
-```
-docker-compose up
-```
-To stop use Ctrl+C  (thrice)
-
-Viewing images
-```
-docker images
-```
-
-Viewing containers
-```
-  docker ps
-```
-
-Stop all containers
-```
-docker stop $(docker ps -a -q)
-```
-
-Delete all containers
-```
-docker rm $(docker ps -a -q)
-```
-
-Delete all images
-```
-docker system prune -a
-or
-docker rmi $(docker images -q)
-```
 
 ## Testing
 
@@ -71,7 +38,7 @@ After application running open new terminal and enter:
 To run all tests without authorization
 
 ```
-npm test
+npm run test
 ```
 
 To run only one of all test suites (users, boards or tasks)
