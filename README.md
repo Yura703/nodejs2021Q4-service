@@ -1,6 +1,6 @@
 ### [Yuri Lapitski](lyurik@tut.by)
 # RS School REST service
-# PostgreSQL-TypeORM
+# Auth-jwt
 
 ## Prerequisites
 
