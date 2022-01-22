@@ -25,7 +25,8 @@ const {
   POSTGRES_PASSWORD,
   POSTGRES_DB,
   POSTGRES_PORT,
-  POSTGRES_HOST
+  POSTGRES_HOST,
+  SALT
 } = process.env;
 
 const LEVEL_LOG = LoggerLevel[process.env.LEVEL_LOG ? +process.env.LEVEL_LOG : 3] as pino.LevelWithSilent
@@ -40,5 +41,6 @@ export const CONFIG = {
   POSTGRES_DB,
   POSTGRES_PORT,
   POSTGRES_HOST,
-  LEVEL_LOG
+  LEVEL_LOG, 
+  SALT
 };

@@ -16,6 +16,7 @@ const fastify_swagger_1 = __importDefault(require("fastify-swagger"));
 const user_router_1 = __importDefault(require("./resources/users/user.router"));
 const board_router_1 = __importDefault(require("./resources/boards/board.router"));
 const task_router_1 = __importDefault(require("./resources/tasks/task.router"));
+const login_router_1 = __importDefault(require("./resources/logins/login.router"));
 const logger_1 = __importDefault(require("./logger"));
 const typeorm_1 = require("typeorm");
 const ormconfig_1 = __importDefault(require("./ormconfig"));
@@ -63,6 +64,9 @@ server.register(board_router_1.default, {
 });
 server.register(task_router_1.default, {
     prefix: '/boards/:boardId/tasks',
+});
+server.register(login_router_1.default, {
+    prefix: '/login',
 });
 // throw Error('Oops!')
 process.on('unhandledRejection', (error) => {

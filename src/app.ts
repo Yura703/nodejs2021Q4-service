@@ -3,6 +3,7 @@ import swaggerUI from 'fastify-swagger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import loginRouter from './resources/logins/login.router';
 import logger from './logger';
 import { createConnection } from 'typeorm';
 import connectionOptions from './ormconfig';
@@ -58,7 +59,9 @@ server.register(boardRouter, {
 server.register(taskRouter, {
   prefix: '/boards/:boardId/tasks',
 });
-
+server.register(loginRouter, {
+  prefix: '/login',
+});
 
 
    // throw Error('Oops!')
