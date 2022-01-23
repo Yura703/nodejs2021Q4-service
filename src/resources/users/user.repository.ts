@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { gethashPassword } from "../logins/login.service";
+import { getHash } from "../logins/login.service";
 import { User } from "./user.model";
     
 const findById = async (ID: string) => {
@@ -23,7 +23,7 @@ const findByLogin = async (loginUser: string) => {
 const createUser = async (user: Omit<User, 'id'>) => {
   const repository = await getRepository(User);
 
-  const password = await gethashPassword(user.password);
+  const password = await getHash(user.password);
   const newUser = {...user, password};
 
   return await repository.save(newUser);
@@ -36,7 +36,7 @@ const editUser = async (id: string, user: User) => {
 
     return false;
   }
-  const password = await gethashPassword(user.password);
+  const password = await getHash(user.password);
   const _user = {...editUser, ...user, password};
   await repository.save(_user);
 

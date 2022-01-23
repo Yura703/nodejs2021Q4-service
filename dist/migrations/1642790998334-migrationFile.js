@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.migrationFile1642790998334 = void 0;
+const login_service_1 = require("../resources/logins/login.service");
 class migrationFile1642790998334 {
     constructor() {
         this.name = 'migrationFile1642790998334';
@@ -54,6 +55,8 @@ class migrationFile1642790998334 {
             ALTER TABLE "tasks"
             ADD CONSTRAINT "FK_8a75fdea98c72c539a0879cb0d1" FOREIGN KEY ("boardId") REFERENCES "boards"("id") ON DELETE CASCADE ON UPDATE NO ACTION
         `);
+            const password = yield (0, login_service_1.getHash)("password");
+            yield queryRunner.query(`INSERT INTO "users" (name, login, password) VALUES ('admin', 'admin', '${password}')`);
         });
     }
     down(queryRunner) {

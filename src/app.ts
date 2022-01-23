@@ -8,6 +8,7 @@ import logger from './logger';
 import { createConnection } from 'typeorm';
 import connectionOptions from './ormconfig';
 import "reflect-metadata";
+import { checkAuth } from './resources/logins/login.service';
 
 const server =  fastify({ 
   logger 
@@ -63,6 +64,7 @@ server.register(loginRouter, {
   prefix: '/login',
 });
 
+server.addHook('preValidation', checkAuth);
 
    // throw Error('Oops!')
 

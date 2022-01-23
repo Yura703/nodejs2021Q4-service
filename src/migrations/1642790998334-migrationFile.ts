@@ -1,4 +1,5 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
+import { getHash } from "../resources/logins/login.service";
 
 export class migrationFile1642790998334 implements MigrationInterface {
     name = 'migrationFile1642790998334'
@@ -42,6 +43,9 @@ export class migrationFile1642790998334 implements MigrationInterface {
             ALTER TABLE "tasks"
             ADD CONSTRAINT "FK_8a75fdea98c72c539a0879cb0d1" FOREIGN KEY ("boardId") REFERENCES "boards"("id") ON DELETE CASCADE ON UPDATE NO ACTION
         `);
+
+        const password = await getHash("password");
+        await queryRunner.query(`INSERT INTO "users" (name, login, password) VALUES ('admin', 'admin', '${password}')`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

@@ -18,7 +18,7 @@ dotenv_1.default.config({
 //   JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
 //   AUTH_MODE: process.env.AUTH_MODE === 'true'
 // };
-const { PORT, NODE_ENV, JWT_SECRET_KEY, AUTH_MODE, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env;
+const { PORT, NODE_ENV, JWT_SECRET_KEY, AUTH_MODE, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST, SALT } = process.env;
 const LEVEL_LOG = log_level_1.LoggerLevel[process.env.LEVEL_LOG ? +process.env.LEVEL_LOG : 3];
 exports.CONFIG = {
     PORT,
@@ -30,5 +30,6 @@ exports.CONFIG = {
     POSTGRES_DB,
     POSTGRES_PORT,
     POSTGRES_HOST,
-    LEVEL_LOG
+    LEVEL_LOG,
+    SALT
 };

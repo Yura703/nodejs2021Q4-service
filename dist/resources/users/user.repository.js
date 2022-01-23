@@ -26,7 +26,7 @@ const findByLogin = (loginUser) => __awaiter(void 0, void 0, void 0, function* (
 });
 const createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const repository = yield (0, typeorm_1.getRepository)(user_model_1.User);
-    const password = yield (0, login_service_1.gethashPassword)(user.password);
+    const password = yield (0, login_service_1.getHash)(user.password);
     const newUser = Object.assign(Object.assign({}, user), { password });
     return yield repository.save(newUser);
 });
@@ -36,7 +36,7 @@ const editUser = (id, user) => __awaiter(void 0, void 0, void 0, function* () {
     if (!editUser) {
         return false;
     }
-    const password = yield (0, login_service_1.gethashPassword)(user.password);
+    const password = yield (0, login_service_1.getHash)(user.password);
     const _user = Object.assign(Object.assign(Object.assign({}, editUser), user), { password });
     yield repository.save(_user);
     return _user;
