@@ -1,7 +1,6 @@
 import { FastifyPluginAsync } from "fastify"
 import { getNewJWT } from './login.service';
 import { User } from "../users/user.model";
-//import { postUsersOpts } from "../users/user.schema";
 import  userController from '../users/user.repository';
 
 const loginRoutes: FastifyPluginAsync = async (fastify): Promise<void> => {

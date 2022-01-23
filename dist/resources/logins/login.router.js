@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const login_service_1 = require("./login.service");
-//import { postUsersOpts } from "../users/user.schema";
 const user_repository_1 = __importDefault(require("../users/user.repository"));
 const loginRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
     fastify.post('/', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
