@@ -12,16 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const login_service_1 = require("./login.service");
-const user_schema_1 = require("../users/user.schema");
+//import { postUsersOpts } from "../users/user.schema";
 const user_repository_1 = __importDefault(require("../users/user.repository"));
 const loginRoutes = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
-    fastify.post('/', user_schema_1.postUsersOpts, (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
+    fastify.post('/', (req, reply) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield user_repository_1.default.findByLogin(req.body.login);
         if (!user) {
             reply.status(403);
-            return false;
+            reply.send("User not found");
         }
-        return (0, login_service_1.getNewJWT)(user);
+        const token = yield (0, login_service_1.getNewJWT)(user);
+        reply.status(200);
+        reply.send({ token });
     }));
 });
 module.exports = loginRoutes;

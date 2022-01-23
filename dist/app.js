@@ -21,6 +21,7 @@ const logger_1 = __importDefault(require("./logger"));
 const typeorm_1 = require("typeorm");
 const ormconfig_1 = __importDefault(require("./ormconfig"));
 require("reflect-metadata");
+const login_service_1 = require("./resources/logins/login.service");
 const server = (0, fastify_1.default)({
     logger: logger_1.default
 });
@@ -68,6 +69,7 @@ server.register(task_router_1.default, {
 server.register(login_router_1.default, {
     prefix: '/login',
 });
+server.addHook('preValidation', login_service_1.checkAuth);
 // throw Error('Oops!')
 process.on('unhandledRejection', (error) => {
     console.error(error.message);
