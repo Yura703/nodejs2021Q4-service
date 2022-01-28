@@ -1,26 +1,103 @@
+import bcrypt from 'bcryptjs';
+import jsonwebtoken from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
+const { JWT_SECRET_KEY, SALT } = process.env;
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
+  async create(createUserDto: CreateUserDto) {
+    const password = await this.getHash(createUserDto.password);
+    const newUser = { ...createUserDto, password };
+
+    return await this.userRepository.save(newUser);
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    return this.userRepository.findOne(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const editUser = await this.userRepository.findOne(id);
+    if (!editUser) {
+      return false;
+    }
+    const password = await this.getHash(updateUserDto.password);
+    const _user = { ...editUser, ...updateUserDto, password };
+    await this.userRepository.save(_user);
+
+    return _user;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const delUser = await this.userRepository.findOne(id);
+    if (!delUser) {
+      return false;
+    }
+    return this.userRepository.remove(delUser);
   }
+
+  findByLogin(loginUser: string) {
+    return this.userRepository.findOne({ where: { login: loginUser } });
+  }
+
+  async getNewJWT(user: User) {
+    return await jsonwebtoken.sign(
+      { userId: user.id, login: user.login },
+      JWT_SECRET_KEY || 'secret-key',
+      { expiresIn: '6h' },
+    );
+  }
+
+  getHash(password: string): string {
+    const salt = bcrypt.genSaltSync(SALT);
+
+    return bcrypt.hashSync(password, salt);
+  }
+
+  checkHash(password: string, hash: string): boolean {
+    return bcrypt.compareSync(password, hash);
+  }
+
+  // async checkAuth(req: FastifyRequest, reply: FastifyReply) {
+  //   try {
+  //     const authString = req.headers.authorization;
+  //     let checkUrl = false;
+  //     routesName.forEach((router) => {
+  //       const result = req.url.indexOf(router);
+  //       if (result !== -1) {
+  //         checkUrl = true;
+  //       }
+  //     });
+
+  //     if (authString && checkUrl) {
+  //       const token = authString.split(' ')[1];
+
+  //       jsonwebtoken.verify(token, JWT_SECRET_KEY as string, (error) => {
+  //         if (error) {
+  //           reply.code(401);
+  //           reply.send('Token is not valid');
+  //         }
+  //       });
+  //     } else if (checkUrl) {
+  //       reply.code(401);
+  //       reply.send('Token is not valid');
+  //     }
+  //   } catch (error) {
+  //     reply.code(401);
+  //     reply.send();
+  //   }
+  // }
 }
