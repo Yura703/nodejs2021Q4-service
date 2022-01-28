@@ -1,34 +1,62 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 
-@Controller('tasks')
+@Controller('boards')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
-  @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  @Post('/:boardId/tasks')
+  create(
+    @Body() createTaskDto: CreateTaskDto,
+    @Param('boardId') boardId: string,
+  ) {
+    return this.tasksService.create(createTaskDto, boardId);
   }
 
-  @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  @Get('/:boardId/tasks')
+  findAll(@Param('boardId') boardId: string) {
+    return this.tasksService.findAll(boardId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+  @Get('/:boardId/tasks/:taskId')
+  findOne(@Param('id') taskId: string, @Param('boardId') boardId: string) {
+    const task = this.tasksService.findOne(taskId, boardId);
+    if (task) {
+      return task;
+    }
+    throw new NotFoundException();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(+id, updateTaskDto);
+  @Patch('/:boardId/tasks')
+  update(
+    @Param('id') taskId: string,
+    @Param('boardId') boardId: string,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
+    const user = this.tasksService.findOne(taskId, boardId);
+    if (user) {
+      return this.tasksService.update(taskId, boardId, updateTaskDto);
+    }
+    throw new NotFoundException();
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+  @Delete('/:boardId/tasks')
+  remove(@Param('id') taskId: string, @Param('boardId') boardId: string) {
+    const user = this.tasksService.remove(taskId, boardId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 }

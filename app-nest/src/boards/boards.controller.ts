@@ -1,15 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { BoardsService } from './boards.service';
-import { CreateBoardDto } from './dto/create-board.dto';
-import { UpdateBoardDto } from './dto/update-board.dto';
+import { BoardDto } from './dto/board.dto';
 
 @Controller('boards')
 export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
 
   @Post()
-  create(@Body() createBoardDto: CreateBoardDto) {
-    return this.boardsService.create(createBoardDto);
+  create(@Body() boardDto: BoardDto) {
+    return this.boardsService.create(boardDto);
   }
 
   @Get()
@@ -19,16 +27,28 @@ export class BoardsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.boardsService.findOne(+id);
+    const board = this.boardsService.findOne(id);
+    if (board) {
+      return board;
+    }
+    throw new NotFoundException();
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardsService.update(+id, updateBoardDto);
+  update(@Param('id') id: string, @Body() boardDto: BoardDto) {
+    const board = this.boardsService.update(id, boardDto);
+    if (board) {
+      return board;
+    }
+    throw new NotFoundException();
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.boardsService.remove(+id);
+    const board = this.boardsService.remove(id);
+    if (!board) {
+      throw new NotFoundException();
+    }
+    return board;
   }
 }

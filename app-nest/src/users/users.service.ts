@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 const { JWT_SECRET_KEY, SALT } = process.env;
+
 @Injectable()
 export class UsersService {
   constructor(
