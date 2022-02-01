@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
   NotFoundException,
@@ -38,7 +38,7 @@ export class TasksController {
     throw new NotFoundException();
   }
 
-  @Patch('/:boardId/tasks')
+  @Put('/:boardId/tasks')
   update(
     @Param('id') taskId: string,
     @Param('boardId') boardId: string,

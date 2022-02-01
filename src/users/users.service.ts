@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import jsonwebtoken from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,8 +18,9 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const password = await this.getHash(createUserDto.password);
     const newUser = { ...createUserDto, password };
-
-    return await this.userRepository.save(newUser);
+    const userRespons = await this.userRepository.save(newUser);
+    delete userRespons.password;
+    return userRespons;
   }
 
   findAll() {
@@ -62,14 +63,16 @@ export class UsersService {
     );
   }
 
-  getHash(password: string): string {
-    const salt = bcrypt.genSaltSync(+SALT);
+  async getHash(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(+SALT);
 
-    return bcrypt.hashSync(password, salt);
+    const hashPass = await bcrypt.hash(password, salt);
+    return hashPass;
   }
 
-  checkHash(password: string, hash: string): boolean {
-    return bcrypt.compareSync(password, hash);
+  async checkHash(password: string, hash: string): Promise<boolean> {
+    const normPass = await bcrypt.compare(password, hash);
+    return normPass;
   }
 
   // async checkAuth(req: FastifyRequest, reply: FastifyReply) {

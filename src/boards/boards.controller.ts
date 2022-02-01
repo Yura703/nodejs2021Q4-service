@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
   NotFoundException,
@@ -34,7 +34,7 @@ export class BoardsController {
     throw new NotFoundException();
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() boardDto: BoardDto) {
     const board = this.boardsService.update(id, boardDto);
     if (board) {
