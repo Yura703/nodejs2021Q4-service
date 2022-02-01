@@ -63,7 +63,7 @@ export class UsersService {
   }
 
   getHash(password: string): string {
-    const salt = bcrypt.genSaltSync(SALT);
+    const salt = bcrypt.genSaltSync(+SALT);
 
     return bcrypt.hashSync(password, salt);
   }
