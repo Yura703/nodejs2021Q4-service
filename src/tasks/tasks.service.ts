@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -13,7 +13,7 @@ export class TasksService {
   ) {}
   async create(createTaskDto: CreateTaskDto, boardId: string) {
     const newTask = this.taskRepository.create({
-      ...CreateTaskDto,
+      ...createTaskDto,
       boardId: boardId,
     });
     await this.taskRepository.save(newTask);
@@ -25,10 +25,15 @@ export class TasksService {
     return this.taskRepository.find({ boardId: _boardId });
   }
 
-  findOne(boardId: string, taskId: string) {
-    return this.taskRepository.findOne({
+  async findOne(boardId: string, taskId: string) {
+    const task = await this.taskRepository.findOne({
       where: { id: taskId, boardId: boardId },
     });
+    if (!task) {
+      return false;
+    } else {
+      return task;
+    }
   }
 
   async update(boardId: string, taskId: string, updateTaskDto: UpdateTaskDto) {
@@ -36,10 +41,17 @@ export class TasksService {
       id: taskId,
       boardId: boardId,
     });
+    console.log(taskId);
+    console.log(boardId);
+
+    console.log(editTask);
+
     if (!editTask) {
-      return false;
+      throw new NotFoundException();
     }
     const task = { ...editTask, ...updateTaskDto };
+    console.log(task);
+
     const newTask = await this.taskRepository.save(task);
     return newTask;
   }

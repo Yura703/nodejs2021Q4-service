@@ -29,26 +29,29 @@ export class TasksController {
     return this.tasksService.findAll(boardId);
   }
 
-  @Get('/:boardId/tasks/:taskId')
+  @Get('/:boardId/tasks/:id')
   findOne(@Param('id') taskId: string, @Param('boardId') boardId: string) {
     const task = this.tasksService.findOne(taskId, boardId);
+    task.then((res) => {
+      console.log(res);
+      if (!res) return 'not Found';
+
+      //throw new NotFoundException();
+    });
+    console.log('1111' + task);
+
     if (task) {
       return task;
     }
-    throw new NotFoundException();
   }
 
-  @Put('/:boardId/tasks')
+  @Put('/:boardId/tasks/:id')
   update(
     @Param('id') taskId: string,
     @Param('boardId') boardId: string,
     @Body() updateTaskDto: UpdateTaskDto,
   ) {
-    const user = this.tasksService.findOne(taskId, boardId);
-    if (user) {
-      return this.tasksService.update(taskId, boardId, updateTaskDto);
-    }
-    throw new NotFoundException();
+    return this.tasksService.update(taskId, boardId, updateTaskDto);
   }
 
   @Delete('/:boardId/tasks')
