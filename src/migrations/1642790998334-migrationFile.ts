@@ -44,10 +44,11 @@ export class migrationFile1642790998334 implements MigrationInterface {
             ADD CONSTRAINT "FK_8a75fdea98c72c539a0879cb0d1" FOREIGN KEY ("boardId") REFERENCES "boards"("id") ON DELETE CASCADE ON UPDATE NO ACTION
         `);
 
+    //"$2a$10$hicgzmnvx.LrGYORJC9M4u39tieIdFWx9FHV3s.78trLRSytYqVqi"
     // const password = await bcrypt.hash('password', 10);
-    // await queryRunner.query(
-    //   `INSERT INTO "users" (name, login, password) VALUES ('admin', 'admin', '${password}')`,
-    // );
+    await queryRunner.query(
+      `INSERT INTO "users" (name, login, password) VALUES ('admin', 'admin', '$2a$10$hicgzmnvx.LrGYORJC9M4u39tieIdFWx9FHV3s.78trLRSytYqVqi')`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

@@ -52,7 +52,10 @@ export class UsersService {
   }
 
   findByLogin(loginUser: string) {
-    return this.userRepository.findOne({ where: { login: loginUser } });
+    return this.userRepository.findOneOrFail({
+      where: { login: loginUser },
+      select: ['id', 'name', 'login', 'password'],
+    });
   }
 
   async getNewJWT(user: User) {

@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 //import bcrypt from 'bcryptjs';
-import jsonwebtoken from 'jsonwebtoken';
+import * as jsonwebtoken from 'jsonwebtoken';
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
