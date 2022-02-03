@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
+    "migration": "npm run migration",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "test:watch": "jest --watch",
@@ -19,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
-    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
+    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"  
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -29,22 +31,24 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/platform-fastify": "^8.2.6",
     "@nestjs/typeorm": "^8.0.3",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^8.7.1",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0",
-    "typeorm": "^0.2.41",
     "@types/node": "^16.11.11",
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
     "fastify": "^3.24.1",
     "fastify-swagger": "^4.12.6",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1",
     "pino": "^7.6.1",
     "query-string": "^7.0.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.2.0",
     "ts-node": "^10.4.0",
+    "typeorm": "^0.2.41",
     "typescript": "^4.5.2",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
@@ -92,5 +96,4 @@
       "./test/setup.js"
     ]
   }
-   
 }
