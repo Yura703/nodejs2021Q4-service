@@ -25,9 +25,9 @@ export class LoginService {
     if (!comparePasswords) {
       throw new ForbiddenException('login is bad');
     }
-    const tocken = this.getNewJWT(user);
+    const token = this.getNewJWT(user);
 
-    return { tocken };
+    return { token: token };
   }
 
   //   const { JWT_SECRET_KEY, SALT } = CONFIG;

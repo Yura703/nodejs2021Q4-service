@@ -29,8 +29,8 @@ export class BoardsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    const board = this.boardsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const board = await this.boardsService.findOne(id);
     if (board) {
       return board;
     }
@@ -47,8 +47,9 @@ export class BoardsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    const board = this.boardsService.remove(id);
+  async remove(@Param('id') id: string) {
+    const board = await this.boardsService.remove(id);
+
     if (!board) {
       throw new NotFoundException();
     }

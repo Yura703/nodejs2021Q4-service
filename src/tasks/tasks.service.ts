@@ -25,7 +25,7 @@ export class TasksService {
     return this.taskRepository.find({ boardId: _boardId });
   }
 
-  async findOne(boardId: string, taskId: string) {
+  async findOne(taskId: string, boardId: string) {
     const task = await this.taskRepository.findOne({
       where: { id: taskId, boardId: boardId },
     });
@@ -58,8 +58,8 @@ export class TasksService {
 
   async remove(boardId: string, taskId: string) {
     const delTask = await this.taskRepository.findOne({
-      id: taskId,
       boardId: boardId,
+      id: taskId,
     });
     if (!delTask) {
       return false;

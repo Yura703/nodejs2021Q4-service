@@ -33,33 +33,30 @@ export class TasksController {
   }
 
   @Get('/:boardId/tasks/:id')
-  findOne(@Param('id') taskId: string, @Param('boardId') boardId: string) {
-    const task = this.tasksService.findOne(taskId, boardId);
-    task.then((res) => {
-      console.log(res);
-      if (!res) return 'not Found';
-
-      //throw new NotFoundException();
-    });
-    console.log('1111' + task);
-
-    if (task) {
-      return task;
+  async findOne(
+    @Param('id') taskId: string,
+    @Param('boardId') boardId: string,
+  ) {
+    const task = await this.tasksService.findOne(taskId, boardId);
+    if (!task) {
+      throw new NotFoundException();
     }
+
+    return task;
   }
 
   @Put('/:boardId/tasks/:id')
   update(
-    @Param('id') taskId: string,
     @Param('boardId') boardId: string,
+    @Param('id') taskId: string,
     @Body() updateTaskDto: UpdateTaskDto,
   ) {
-    return this.tasksService.update(taskId, boardId, updateTaskDto);
+    return this.tasksService.update(boardId, taskId, updateTaskDto);
   }
 
-  @Delete('/:boardId/tasks')
-  remove(@Param('id') taskId: string, @Param('boardId') boardId: string) {
-    const user = this.tasksService.remove(taskId, boardId);
+  @Delete('/:boardId/tasks/:id')
+  async remove(@Param('boardId') boardId: string, @Param('id') taskId: string) {
+    const user = await this.tasksService.remove(boardId, taskId);
     if (!user) {
       throw new NotFoundException();
     }

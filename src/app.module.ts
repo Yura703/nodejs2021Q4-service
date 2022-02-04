@@ -12,7 +12,7 @@ import { User } from './users/entities/user.entity';
 import { Task } from './tasks/entities/task.entity';
 import { Board } from './boards/entities/board.entity';
 //import { DBModule } from './db.module';
-import { AuthModule } from './auth/auth.module';
+//import { AuthModule } from './auth/auth.module';
 import { LoginModule } from './login/login.module';
 //import { join } from 'path';
 
@@ -62,7 +62,7 @@ import { LoginModule } from './login/login.module';
       //migrationsTableName: 'migrations_typeorm',
       //migrationsRun: true,
     }),
-    AuthModule,
+    //AuthModule,
     LoginModule,
   ],
   controllers: [AppController],
