@@ -11,6 +11,6 @@ async function bootstrap() {
     app = await NestFactory.create(AppModule);
   }
 
-  await app.listen(4000); //сделать выбор порта из енв
+  await app.listen(process.env['PORT']);
 }
 bootstrap();

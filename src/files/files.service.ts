@@ -1,21 +1,25 @@
-import { Injectable } from '@nestjs/common';
-import { CreateFileDto } from './dto/create-file.dto';
+import {
+  Injectable,
+  InternalServerErrorException,
+  StreamableFile,
+} from '@nestjs/common';
+import { join } from 'path';
+import * as fs from 'fs';
 
 @Injectable()
 export class FilesService {
-  create(createFileDto: CreateFileDto) {
-    return 'This action adds a new file';
+  uploadFile(file) {
+    return `File ${file} is upload`;
   }
 
-  findAll() {
-    return `This action returns all files`;
-  }
+  findOne(name: string): StreamableFile {
+    const filePath = join(process.cwd(), './static/' + name);
 
-  findOne(id: number) {
-    return `This action returns a #${id} file`;
-  }
+    if (!fs.existsSync(filePath))
+      throw new InternalServerErrorException(`File ${name} not found.`);
 
-  remove(id: number) {
-    return `This action removes a #${id} file`;
+    const fileStream = fs.createReadStream(filePath);
+
+    return new StreamableFile(fileStream);
   }
 }

@@ -41,18 +41,13 @@ export class TasksService {
       id: taskId,
       boardId: boardId,
     });
-    console.log(taskId);
-    console.log(boardId);
-
-    console.log(editTask);
 
     if (!editTask) {
       throw new NotFoundException();
     }
     const task = { ...editTask, ...updateTaskDto };
-    console.log(task);
-
     const newTask = await this.taskRepository.save(task);
+
     return newTask;
   }
 
