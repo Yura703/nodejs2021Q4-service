@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+//import bcrypt from 'bcrypt';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class migrationFile1642790998334 implements MigrationInterface {

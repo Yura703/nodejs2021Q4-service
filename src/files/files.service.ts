@@ -8,7 +8,7 @@ import * as fs from 'fs';
 
 @Injectable()
 export class FilesService {
-  uploadFile(file) {
+  uploadFile(file: string) {
     return `File ${file} is upload`;
   }
 
